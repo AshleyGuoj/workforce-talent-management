@@ -1,0 +1,911 @@
+
+                <!DOCTYPE html>
+                <html lang="zh">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Demo Request Form</title>
+                  <style>
+                    *,
+                    *::before,
+                    *::after {
+                      box-sizing: border-box;
+                      margin: 0;
+                    }
+                    .iframe-outer {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      bottom: 0;
+                      right: 0;
+                      display: flex;
+                      justify-content: center;
+                      background-color: #E0E0E0;
+                    }
+                    .iframe-wrapper {
+                      width: 100%;
+                      height: 100%;
+                      margin: 0 auto;
+                      transform-origin: center top;
+                      flex-shrink: 0;
+                    }
+                    #dynamicIframe {
+                      border: none;
+                      width: 100%;
+                      height: 100%;
+                    }
+                  </style>
+                  <script>
+                const width = 1920
+                const height = 1080
+                const resolutionRatio = width && height ? width / height : 1
+                const pageNameMap = {
+                  'homepage': 'Homepage',
+    'demo_request_form': 'Demo Request Form',
+    'demo_confirmation': 'Demo Request Confirmation'
+                }
+                function setIframeSize(w, h) {
+                  const currentContainerRadio = w / h
+                  let widthValue = w
+                  let heightValue = h
+                  let zoom = 1
+                  if (currentContainerRadio > resolutionRatio) {
+                    widthValue = h * resolutionRatio
+                    heightValue = h
+                  } else {
+                    widthValue = w
+                    heightValue = w / resolutionRatio
+                  }
+                  zoom = width ? widthValue / width : 1
+                  return {
+                    width: widthValue / zoom + 'px',
+                    height: heightValue / zoom + 'px',
+                    zoom,
+                  }
+                }
+                function adjustIframeSize() {
+                  const iframeWrapper = document.querySelector(".iframe-wrapper")
+                  const { width, height, zoom } = setIframeSize(window.innerWidth, window.innerHeight)
+                  iframeWrapper.style.height = height
+                  iframeWrapper.style.width = width
+                  iframeWrapper.style.transform = 'scale(' + zoom + ')'
+                }
+                function sanitizeFilename(name) {
+                  return name.replace(/[\/:*?"<>|]/g, '_')
+                }
+                function handlePostMessage(event) {
+                  if (!event.data) {
+                    return
+                  }
+                  const { type, targetPageId } = event.data
+                  const targetPageName = pageNameMap[targetPageId]
+                  if (type === "iframeNavigation" && targetPageId && targetPageName) {
+                    window.location.href = targetPageName + '.html'
+                  }
+                }
+                window.addEventListener('message', handlePostMessage)
+                window.onload = adjustIframeSize
+                window.onresize = adjustIframeSize
+                window.onunload = () => {
+                  window.removeEventListener('message', handlePostMessage)
+                }
+              </script>
+                </head>
+                <body>
+                  <div class="iframe-outer">
+                    <div class="iframe-wrapper">
+                      <iframe id="dynamicIframe" srcdoc='<html lang="en" data-theme="corporate"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Personalized Demo - Valor88</title>
+    <link href="./assets/static/uxbot/daisyui@5.css" rel="stylesheet" type="text/css">
+    <script src="./assets/static/uxbot/tailwind-browser@4.js"></script>
+    <link href="./assets/static/uxbot/daisyui-themes.css" rel="stylesheet" type="text/css">
+    <script src="./assets/3/3.1.1/iconify.min.js"></script>
+    <style>
+    /* CSS code for common usage*/
+    
+    /* daisyUI Theme Variables Customization
+     * Based on the selected daisyUI theme and UI guidance requirements,
+     * customize only the CSS variables that need to be different from the theme defaults.
+     */
+    
+    :root {
+      /* Corporate brand colors as specified in UI guidance */
+      --color-primary: rgba(30, 58, 138, 1); /* Deep corporate blue #1E3A8A */
+      --color-primary-content: rgba(255, 255, 255, 1);
+      --color-secondary: rgba(212, 175, 55, 1); /* Warm gold #D4AF37 */
+      --color-secondary-content: rgba(17, 24, 39, 1);
+      --color-accent: rgba(16, 185, 129, 1); /* Success emerald green */
+      --color-accent-content: rgba(255, 255, 255, 1);
+      --color-base-100: rgba(249, 250, 251, 1); /* Light background #F9FAFB */
+      --color-base-200: rgba(243, 244, 246, 1); /* Very light gray #F3F4F6 */
+      --color-base-300: rgba(209, 213, 219, 1);
+      --color-base-content: rgba(55, 65, 81, 1); /* Mid-tone text #374151 */
+      --color-info: rgba(14, 165, 233, 1); /* Sky blue */
+      --color-success: rgba(16, 185, 129, 1); /* Emerald green */
+      --color-warning: rgba(245, 158, 11, 1); /* Amber */
+      --color-error: rgba(239, 68, 68, 1); /* Red */
+      --radius-box: 0.5rem; /* 8px border radius for cards and images */
+      --border: 1px;
+    }
+    
+    /* Typography system as per UI guidance */
+    .heading-1 {
+      font-size: 3rem; /* 48px */
+      line-height: 3.5rem; /* 56px */
+      font-weight: 700;
+    }
+    
+    .heading-2 {
+      font-size: 2rem; /* 32px */
+      line-height: 2.5rem; /* 40px */
+      font-weight: 600;
+    }
+    
+    .heading-3 {
+      font-size: 1.5rem; /* 24px */
+      line-height: 2rem; /* 32px */
+      font-weight: 600;
+    }
+    
+    .body-text {
+      font-size: 1rem; /* 16px */
+      line-height: 1.5rem; /* 24px */
+      font-weight: 400;
+    }
+    
+    .button-text {
+      font-size: 0.875rem; /* 14px */
+      line-height: 1.25rem; /* 20px */
+      font-weight: 600;
+    }
+    
+    /* Link hover effects */
+    .link-hover-primary {
+      transition: color 0.2s ease-in-out;
+    }
+    
+    .link-hover-primary:hover {
+      color: var(--color-primary);
+      text-decoration: underline;
+    }
+    
+    /* Header backdrop blur effect */
+    .header-backdrop {
+      backdrop-filter: blur(8px);
+      background: rgba(249, 250, 251, 0.9);
+    }
+    
+    /* Toast positioning and animations */
+    .toast-notification {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      max-width: 20rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    .toast-notification.show {
+      transform: translateX(0);
+    }
+    
+    /* Smooth transitions for interactive elements */
+    .btn, .link, .menu a {
+      transition: all 0.2s ease-in-out;
+    }
+  </style>
+    <style>
+/* Form-specific styling enhancements */
+.form-card {
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.form-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-input {
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.form-input.error {
+  border-color: var(--color-error);
+}
+
+.error-message {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  min-height: 1.25rem;
+}
+
+.date-picker-wrapper {
+  position: relative;
+}
+
+.time-zone-tooltip {
+  position: relative;
+}
+
+.time-zone-tooltip:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-base-content);
+  color: var(--color-base-100);
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: 10;
+  margin-bottom: 0.25rem;
+}
+
+.tooltip-content::after {
+  content: &apos;&apos;;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: var(--color-base-content);
+}
+
+.btn-primary-custom {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-content);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary-custom:hover {
+  background-color: rgba(30, 58, 138, 0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+}
+
+.btn-secondary-custom {
+  background-color: transparent;
+  border: 1px solid var(--color-base-300);
+  color: var(--color-base-content);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary-custom:hover {
+  background-color: var(--color-base-200);
+  border-color: var(--color-base-content);
+}
+
+.step-icon {
+  color: var(--color-secondary);
+}
+</style>
+<script src="./assets/static/uxbot/25_6/holder.js"></script></head>
+<body class="bg-base-100">
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 sticky top-0 z-50 header-backdrop shadow-sm px-4">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <button tabindex="0" class="btn btn-ghost" onclick="toggleMobileMenu()">
+          <span class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+        </button>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow-lg bg-base-100 rounded-box w-52" data-mobile-menu="">
+          <li><a data-type="text" onclick="navigateTo(&apos;product_page&apos;)" class="link-hover-primary">Product</a></li>
+          <li><a data-type="text" onclick="navigateTo(&apos;use_cases_page&apos;)" class="link-hover-primary">Use Cases</a></li>
+          <li><a data-type="text" onclick="navigateTo(&apos;vision_page&apos;)" class="link-hover-primary">Vision</a></li>
+          <li><a data-type="text" onclick="navigateTo(&apos;contact_page&apos;)" class="link-hover-primary">Contact</a></li>
+          <li class="border-t mt-2 pt-2">
+            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo(&apos;demo_request_form&apos;)">
+              <span data-type="text">Request Demo</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-2" data-type="container">
+        <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32" data-type="icon"></span>
+        <span class="text-xl font-bold text-base-content cursor-pointer" data-type="text" onclick="navigateTo(&apos;homepage&apos;)">Valor88</span>
+      </div>
+    </div>
+    
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 gap-2">
+        <li><a data-type="text" onclick="navigateTo(&apos;product_page&apos;)" class="link-hover-primary body-text">Product</a></li>
+        <li><a data-type="text" onclick="navigateTo(&apos;use_cases_page&apos;)" class="link-hover-primary body-text">Use Cases</a></li>
+        <li><a data-type="text" onclick="navigateTo(&apos;vision_page&apos;)" class="link-hover-primary body-text">Vision</a></li>
+        <li><a data-type="text" onclick="navigateTo(&apos;contact_page&apos;)" class="link-hover-primary body-text">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="navbar-end hidden lg:flex">
+      <button class="btn btn-primary button-text" onclick="navigateTo(&apos;demo_request_form&apos;)" data-type="button">
+        <span data-type="text">Request Demo</span>
+      </button>
+    </div>
+  </div>
+  
+  <style>
+    [data-section-id="common_header"] .navbar {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      min-height: 4rem;
+    }
+    
+    [data-section-id="common_header"] .menu a {
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      transition: all 0.2s ease-in-out;
+    }
+    
+    [data-section-id="common_header"] .menu a:hover {
+      background-color: var(--color-base-200);
+    }
+    
+    [data-section-id="common_header"] .dropdown-content {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 1024px) {
+      [data-section-id="common_header"] .navbar-end {
+        display: none !important;
+      }
+    }
+  </style>
+  
+  <script>
+    (function() {
+      // Close mobile menu when clicking outside
+      document.addEventListener(&apos;click&apos;, function(event) {
+        const dropdown = document.querySelector(&apos;[data-section-id="common_header"] .dropdown&apos;);
+        const menu = document.querySelector(&apos;[data-mobile-menu]&apos;);
+        
+        if (dropdown && menu && !dropdown.contains(event.target)) {
+          menu.classList.add(&apos;hidden&apos;);
+        }
+      });
+      
+      // Set active navigation state
+      window.setActiveNavigation = function(pageId) {
+        const navLinks = document.querySelectorAll(&apos;[data-section-id="common_header"] .menu a&apos;);
+        navLinks.forEach(link => {
+          link.classList.remove(&apos;bg-primary&apos;, &apos;text-primary-content&apos;);
+        });
+        
+        // Map page IDs to navigation items
+        const navMap = {
+          &apos;product_page&apos;: &apos;Product&apos;,
+          &apos;talent_scores_page&apos;: &apos;Product&apos;,
+          &apos;predictive_intelligence_page&apos;: &apos;Product&apos;,
+          &apos;real_time_dashboards_page&apos;: &apos;Product&apos;,
+          &apos;use_cases_page&apos;: &apos;Use Cases&apos;,
+          &apos;use_case_detail_page&apos;: &apos;Use Cases&apos;,
+          &apos;vision_page&apos;: &apos;Vision&apos;,
+          &apos;contact_page&apos;: &apos;Contact&apos;,
+          &apos;booking_calendar&apos;: &apos;Contact&apos;,
+          &apos;booking_confirmation&apos;: &apos;Contact&apos;
+        };
+        
+        if (navMap[pageId]) {
+          const activeText = navMap[pageId];
+          navLinks.forEach(link => {
+            if (link.textContent.trim() === activeText) {
+              link.classList.add(&apos;bg-primary&apos;, &apos;text-primary-content&apos;);
+            }
+          });
+        }
+      };
+    })();
+  </script>
+    
+    <main class="min-h-screen">
+        <div data-section-id="FormHeaderSection" data-section-type="section" class="bg-base-100 py-16">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h1 class="heading-1 text-base-content mb-4" data-type="text">Request a Personalized Demo</h1>
+        <p class="body-text text-base-content/70 max-w-2xl mx-auto" data-type="text">Tell us about your team and availability, and we&apos;ll schedule a customized demonstration of Valor88&apos;s AI-powered talent intelligence platform.</p>
+    </div>
+</div><div data-section-id="NextStepsSection" data-section-type="section" class="bg-base-200 py-16">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="heading-2 text-base-content mb-4" data-type="text">What Happens Next</h2>
+            <p class="body-text text-base-content/70" data-type="text">Here&apos;s what you can expect after submitting your demo request</p>
+        </div>
+        
+        <div class="stats stats-vertical lg:stats-horizontal shadow-lg bg-base-100 w-full">
+            <div class="stat text-center" data-type="container">
+                <div class="stat-figure step-icon">
+                    <span class="iconify" data-icon="heroicons:envelope" data-width="32" data-type="icon"></span>
+                </div>
+                <div class="stat-title" data-type="text">Step 1</div>
+                <div class="stat-value text-lg" data-type="text">Confirmation Email</div>
+                <div class="stat-desc" data-type="text">Receive instant confirmation with next steps</div>
+            </div>
+            
+            <div class="stat text-center" data-type="container">
+                <div class="stat-figure step-icon">
+                    <span class="iconify" data-icon="heroicons:calendar-days" data-width="32" data-type="icon"></span>
+                </div>
+                <div class="stat-title" data-type="text">Step 2</div>
+                <div class="stat-value text-lg" data-type="text">Schedule Call</div>
+                <div class="stat-desc" data-type="text">Our team will contact you within 24 hours</div>
+            </div>
+            
+            <div class="stat text-center" data-type="container">
+                <div class="stat-figure step-icon">
+                    <span class="iconify" data-icon="heroicons:presentation-chart-line" data-width="32" data-type="icon"></span>
+                </div>
+                <div class="stat-title" data-type="text">Step 3</div>
+                <div class="stat-value text-lg" data-type="text">Custom Demo</div>
+                <div class="stat-desc" data-type="text">Tailored demonstration based on your needs</div>
+            </div>
+        </div>
+    </div>
+</div><div data-section-id="DemoRequestFormSection" data-section-type="section" class="bg-base-100 py-16">
+    <div class="max-w-2xl mx-auto px-4">
+        <div class="card bg-base-100 shadow-xl form-card" data-type="container">
+            <div class="card-body p-8">
+                <form id="demoRequestForm" class="space-y-6">
+                    <!-- Contact Information -->
+                    <div class="space-y-4">
+                        <h3 class="heading-3 text-base-content mb-6" data-type="text">Contact Information</h3>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium" data-type="text">Full Name *</span>
+                            </label>
+                            <input type="text" name="fullName" placeholder="Enter your full name" class="input input-bordered form-input" data-type="input" required="">
+                            <div class="error-message" id="fullName-error"></div>
+                        </div>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium" data-type="text">Email Address *</span>
+                            </label>
+                            <input type="email" name="email" placeholder="Enter your business email" class="input input-bordered form-input" data-type="input" required="">
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium" data-type="text">Company Name *</span>
+                            </label>
+                            <input type="text" name="company" placeholder="Enter your company name" class="input input-bordered form-input" data-type="input" required="">
+                            <div class="error-message" id="company-error"></div>
+                        </div>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium" data-type="text">Role/Title *</span>
+                            </label>
+                            <input type="text" name="role" placeholder="e.g., CEO, CHRO, VP of People" class="input input-bordered form-input" data-type="input" required="">
+                            <div class="error-message" id="role-error"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Scheduling Preferences -->
+                    <div class="space-y-4">
+                        <h3 class="heading-3 text-base-content mb-6" data-type="text">Scheduling Preferences</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium" data-type="text">Preferred Date</span>
+                                </label>
+                                <div class="date-picker-wrapper">
+                                    <input type="date" name="preferredDate" class="input input-bordered form-input" data-type="input">
+                                </div>
+                                <div class="error-message" id="preferredDate-error"></div>
+                            </div>
+                            
+                            <div class="form-control">
+                                <label class="label">
+                                    <span class="label-text font-medium" data-type="text">Preferred Time</span>
+                                </label>
+                                <select name="preferredTime" class="select select-bordered form-input" data-type="input">
+                                    <option disabled="" selected="">Select time slot</option>
+                                    <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
+                                    <option value="afternoon">Afternoon (1:00 PM - 5:00 PM)</option>
+                                    <option value="evening">Evening (6:00 PM - 8:00 PM)</option>
+                                </select>
+                                <div class="error-message" id="preferredTime-error"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text font-medium flex items-center gap-2" data-type="text">
+                                    Time Zone
+                                    <div class="time-zone-tooltip">
+                                        <span class="iconify text-base-content/50 cursor-help" data-icon="heroicons:information-circle" data-width="16" data-type="icon"></span>
+                                        <div class="tooltip-content">
+                                            <span data-type="text">Select your local time zone for accurate scheduling</span>
+                                        </div>
+                                    </div>
+                                </span>
+                            </label>
+                            <select name="timeZone" class="select select-bordered form-input" data-type="input">
+                                <option disabled="" selected="">Select your time zone</option>
+                                <option value="PST">Pacific Standard Time (PST)</option>
+                                <option value="MST">Mountain Standard Time (MST)</option>
+                                <option value="CST">Central Standard Time (CST)</option>
+                                <option value="EST">Eastern Standard Time (EST)</option>
+                                <option value="GMT">Greenwich Mean Time (GMT)</option>
+                                <option value="CET">Central European Time (CET)</option>
+                                <option value="JST">Japan Standard Time (JST)</option>
+                                <option value="AEST">Australian Eastern Standard Time (AEST)</option>
+                            </select>
+                            <div class="error-message" id="timeZone-error"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Information -->
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text font-medium" data-type="text">Additional Information</span>
+                        </label>
+                        <textarea name="additionalInfo" class="textarea textarea-bordered form-input h-24" placeholder="Tell us about your team size, current challenges, or specific features you&apos;re interested in..." data-type="input"></textarea>
+                        <div class="error-message" id="additionalInfo-error"></div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="submit" class="btn btn-primary-custom btn-lg flex-1" data-type="button">
+                            <span class="iconify" data-icon="heroicons:paper-airplane" data-width="20" data-type="icon"></span>
+                            <span data-type="text">Submit Request</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary-custom btn-lg" onclick="handleCancel()" data-type="button">
+                            <span data-type="text">Cancel</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+    
+    <div data-section-id="common_footer" data-section-type="common_footer" class="bg-base-200">
+    <footer class="footer footer-horizontal p-10 text-base-content max-w-6xl mx-auto">
+      <aside data-type="container">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32" data-type="icon"></span>
+          <span class="text-xl font-bold" data-type="text">Valor88</span>
+        </div>
+        <p class="text-sm text-base-content opacity-70 max-w-xs" data-type="text">
+          AI-powered Workforce Risk &amp; Opportunity Platform for strategic talent optimization.
+        </p>
+        <div class="flex gap-3 mt-4">
+          <a class="btn btn-ghost btn-sm" data-type="button">
+            <span class="iconify" data-icon="mdi:linkedin" data-width="20" data-type="icon"></span>
+          </a>
+          <a class="btn btn-ghost btn-sm" data-type="button">
+            <span class="iconify" data-icon="mdi:twitter" data-width="20" data-type="icon"></span>
+          </a>
+        </div>
+      </aside>
+      
+      <nav data-type="container">
+        <header class="footer-title text-base-content" data-type="text">Product</header>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;talent_scores_page&apos;)" data-type="text">TalentScores™ Engine</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;predictive_intelligence_page&apos;)" data-type="text">Predictive Intelligence</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;real_time_dashboards_page&apos;)" data-type="text">Real-Time Dashboards</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;demo_request_form&apos;)" data-type="text">Request Demo</a>
+      </nav>
+      
+      <nav data-type="container">
+        <header class="footer-title text-base-content" data-type="text">Use Cases</header>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;use_cases_page&apos;)" data-type="text">Executive Teams</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;use_cases_page&apos;)" data-type="text">HR Leadership</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;use_cases_page&apos;)" data-type="text">Board Members</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;use_cases_page&apos;)" data-type="text">All Use Cases</a>
+      </nav>
+      
+      <nav data-type="container">
+        <header class="footer-title text-base-content" data-type="text">Company</header>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;vision_page&apos;)" data-type="text">Vision</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;contact_page&apos;)" data-type="text">Contact</a>
+        <a class="link link-hover body-text" onclick="navigateTo(&apos;booking_calendar&apos;)" data-type="text">Book Discovery Call</a>
+        <div class="form-control w-full max-w-xs mt-4">
+          <label class="label">
+            <span class="label-text text-sm" data-type="text">Newsletter</span>
+          </label>
+          <div class="join">
+            <input type="email" placeholder="Enter email" class="input input-bordered join-item input-sm w-full" id="newsletter-email" data-type="input">
+            <button class="btn btn-primary join-item btn-sm" onclick="handleNewsletterSignup(document.getElementById(&apos;newsletter-email&apos;).value)" data-type="button">
+              <span data-type="text">Subscribe</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+    
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+      <aside data-type="container">
+        <p class="text-sm" data-type="text">© 2025 Valor88. All rights reserved. Built by leaders from BlackRock, AI startups, and Fortune 100 HR teams.</p>
+      </aside>
+    </footer>
+  </div>
+  
+  <style>
+    [data-section-id="common_footer"] .footer-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--color-base-content);
+    }
+    
+    [data-section-id="common_footer"] .link {
+      color: var(--color-base-content);
+      opacity: 0.8;
+      transition: opacity 0.2s ease-in-out;
+    }
+    
+    [data-section-id="common_footer"] .link:hover {
+      opacity: 1;
+      color: var(--color-primary);
+    }
+    
+    [data-section-id="common_footer"] .footer nav {
+      min-width: 200px;
+    }
+    
+    [data-section-id="common_footer"] .join .input {
+      min-width: 160px;
+    }
+    
+    @media (max-width: 768px) {
+      [data-section-id="common_footer"] .footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+      }
+      
+      [data-section-id="common_footer"] .footer nav {
+        min-width: auto;
+      }
+    }
+  </style>
+  
+  <script>
+    (function() {
+      // Newsletter form validation and submission
+      const newsletterInput = document.getElementById(&apos;newsletter-email&apos;);
+      if (newsletterInput) {
+        newsletterInput.addEventListener(&apos;keypress&apos;, function(event) {
+          if (event.key === &apos;Enter&apos;) {
+            event.preventDefault();
+            handleNewsletterSignup(this.value);
+          }
+        });
+      }
+    })();
+  </script>
+    
+    <script>
+    /* JavaScript code for common usage, wrapped in a closure */
+    (function() {
+      // Navigation function for page transitions
+      window.navigateTo = function(targetPageId) {
+        const isInIframe = window.self !== window.top;
+        const targetFileName = `${targetPageId}.html`;
+        if (isInIframe) {
+          window.parent.postMessage({
+            type: &apos;iframeNavigation&apos;,
+            targetPageId: targetPageId
+          }, &apos;*&apos;);
+        } else {
+          window.location.href = targetFileName;
+        }
+      };
+      
+      // Toast notification system
+      window.showToast = function(message, type = &apos;info&apos;, duration = 5000) {
+        const toast = document.createElement(&apos;div&apos;);
+        toast.className = `toast-notification alert alert-${type} shadow-lg`;
+        toast.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="iconify" data-icon="heroicons:information-circle" data-width="20"></span>
+            <span data-type="text">${message}</span>
+            <button class="btn btn-ghost btn-xs" onclick="this.parentElement.parentElement.remove()">
+              <span class="iconify" data-icon="heroicons:x-mark" data-width="16"></span>
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // Show toast
+        setTimeout(() => toast.classList.add(&apos;show&apos;), 100);
+        
+        // Auto-remove after duration
+        setTimeout(() => {
+          toast.classList.remove(&apos;show&apos;);
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      };
+      
+      // Newsletter signup handler
+      window.handleNewsletterSignup = function(email) {
+        if (!email || !email.includes(&apos;@&apos;)) {
+          showToast(&apos;Please enter a valid email address&apos;, &apos;error&apos;);
+          return;
+        }
+        
+        // Simulate API call
+        showToast(&apos;Thank you for subscribing to our newsletter!&apos;, &apos;success&apos;);
+        
+        // Navigate to confirmation page
+        setTimeout(() => {
+          navigateTo(&apos;newsletter_confirmation&apos;);
+        }, 1500);
+      };
+      
+      // Mobile menu toggle
+      window.toggleMobileMenu = function() {
+        const menu = document.querySelector(&apos;[data-mobile-menu]&apos;);
+        if (menu) {
+          menu.classList.toggle(&apos;hidden&apos;);
+        }
+      };
+      
+    })();
+  </script>
+    <script>
+(function() {
+    // Form validation and submission handling
+    const form = document.getElementById(&apos;demoRequestForm&apos;);
+    const requiredFields = [&apos;fullName&apos;, &apos;email&apos;, &apos;company&apos;, &apos;role&apos;];
+    
+    // Validation functions
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function validateField(fieldName, value) {
+        const errorElement = document.getElementById(`${fieldName}-error`);
+        const inputElement = document.querySelector(`[name="${fieldName}"]`);
+        
+        let isValid = true;
+        let errorMessage = &apos;&apos;;
+        
+        if (requiredFields.includes(fieldName) && !value.trim()) {
+            isValid = false;
+            errorMessage = &apos;This field is required&apos;;
+        } else if (fieldName === &apos;email&apos; && value && !validateEmail(value)) {
+            isValid = false;
+            errorMessage = &apos;Please enter a valid email address&apos;;
+        }
+        
+        // Update UI
+        if (errorElement) {
+            errorElement.textContent = errorMessage;
+        }
+        
+        if (inputElement) {
+            if (isValid) {
+                inputElement.classList.remove(&apos;error&apos;);
+            } else {
+                inputElement.classList.add(&apos;error&apos;);
+            }
+        }
+        
+        return isValid;
+    }
+    
+    // Real-time validation on blur
+    if (form) {
+        const inputs = form.querySelectorAll(&apos;input, select, textarea&apos;);
+        inputs.forEach(input => {
+            input.addEventListener(&apos;blur&apos;, function() {
+                validateField(this.name, this.value);
+            });
+        });
+        
+        // Form submission
+        form.addEventListener(&apos;submit&apos;, function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            let isFormValid = true;
+            
+            // Validate all fields
+            for (let [name, value] of formData.entries()) {
+                if (!validateField(name, value)) {
+                    isFormValid = false;
+                }
+            }
+            
+            // Check required fields
+            requiredFields.forEach(fieldName => {
+                const value = formData.get(fieldName) || &apos;&apos;;
+                if (!validateField(fieldName, value)) {
+                    isFormValid = false;
+                }
+            });
+            
+            if (isFormValid) {
+                // Show success message
+                if (window.showToast) {
+                    window.showToast(&apos;Demo request submitted successfully! You will receive a confirmation email shortly.&apos;, &apos;success&apos;);
+                }
+                
+                // Navigate to confirmation page after a short delay
+                setTimeout(() => {
+                    navigateTo(&apos;demo_confirmation&apos;);
+                }, 1500);
+            } else {
+                // Show error message
+                if (window.showToast) {
+                    window.showToast(&apos;Please correct the errors in the form before submitting.&apos;, &apos;error&apos;);
+                }
+                
+                // Focus on first error field
+                const firstErrorField = form.querySelector(&apos;.error&apos;);
+                if (firstErrorField) {
+                    firstErrorField.focus();
+                }
+            }
+        });
+    }
+    
+    // Cancel button handler
+    window.handleCancel = function() {
+        const hasData = form && Array.from(new FormData(form)).some(([name, value]) => value.trim() !== &apos;&apos;);
+        
+        if (hasData) {
+            const confirmLeave = confirm(&apos;Are you sure you want to cancel? Any entered information will be lost.&apos;);
+            if (!confirmLeave) {
+                return;
+            }
+        }
+        
+        navigateTo(&apos;homepage&apos;);
+    };
+    
+    // Set minimum date to today for date picker
+    const dateInput = document.querySelector(&apos;input[name="preferredDate"]&apos;);
+    if (dateInput) {
+        const today = new Date().toISOString().split(&apos;T&apos;)[0];
+        dateInput.setAttribute(&apos;min&apos;, today);
+    }
+    
+    // Initialize form state
+    document.addEventListener(&apos;DOMContentLoaded&apos;, function() {
+        // Clear any existing form data
+        if (form) {
+            form.reset();
+        }
+        
+        // Set active navigation state
+        if (window.setActiveNavigation) {
+            window.setActiveNavigation(&apos;demo_request_form&apos;);
+        }
+    });
+})();
+</script>
+
+<script>
+      Holder.run({
+        domain: "placehold.co"
+      })
+    </script></body></html>'></iframe>
+                    </div>
+                  </div>
+
+                </body>
+                </html>
+            

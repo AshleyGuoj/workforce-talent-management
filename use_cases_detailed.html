@@ -1,0 +1,342 @@
+<!-- use_case_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use Case Detail - Valor88</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-100 text-gray-800 font-sans">
+
+  <!-- Navigation Bar -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="flex items-center">
+          <span class="text-xl font-bold text-blue-700">Valor88</span>
+          <div class="hidden md:flex space-x-4 ml-10">
+            <a href="homepage.html" class="text-gray-600 hover:text-blue-600">Home</a>
+            <a href="product_page.html" class="text-gray-600 hover:text-blue-600">Product</a>
+            <a href="use_cases_page.html" class="text-blue-600 font-semibold">Use Cases</a>
+            <a href="vision_page.html" class="text-gray-600 hover:text-blue-600">Vision</a>
+            <a href="contact_page.html" class="text-gray-600 hover:text-blue-600">Contact</a>
+          </div>
+        </div>
+        <div class="hidden md:flex">
+          <a href="demo_request_form.html" class="btn btn-primary btn-sm">Request Demo</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative bg-cover bg-center h-[500px] text-white" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80');">
+    <div class="absolute inset-0 flex items-center justify-center flex-col">
+      <div class="text-center max-w-4xl mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight text-center mb-4">
+          See <span class="text-blue-400 font-semibold">Valor88</span>Through Your Role’s Eyes<br>
+          Switch to CEO, CHRO, CFO or HRBP Mode — and Discover What You Can Solve
+        </h1>
+        <p class="mt-4 text-lg text-center text-gray-200 max-w-2xl mx-auto">
+          Every leader faces different challenges.
+          <strong class="text-blue-300">We help you solve them with AI-powered insights and purpose-built modules.</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Use Case Summary -->
+  <section class="py-12 px-6 max-w-6xl mx-auto border-b">
+    <h1 class="text-4xl font-bold mb-4">Boost Talent ROI Through Data</h1>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="badge badge-primary">CEO/COO</span>
+      <span class="badge badge-secondary">CHRO/CPO</span>
+      <span class="badge badge-accent">CFO</span>
+      <span class="badge badge-info">DEI/HRBP</span>
+    </div>
+
+  </section>
+
+  <!-- Section 1.4: Challenge Self-Assessment -->
+<!-- Section 1.4: Challenge Self-Assessment -->
+  <section class="bg-white py-12 px-6">
+    <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow" x-data="assessmentForm()">
+      <h2 class="text-3xl font-bold mb-4 text-center">Challenge Self-Assessment</h2>
+      <p class="text-gray-700 mb-6 text-center max-w-2xl mx-auto">
+        Take 1 minute to assess which workforce challenges most impact your organization. Your answers will help tailor insights below.
+      </p>
+
+      <!-- Start Assessment Button -->
+      <div class="text-center mb-8">
+        <button @click="$refs.assessmentForm.scrollIntoView({ behavior: 'smooth' })" class="btn btn-primary">Start Assessment</button>
+      </div>
+
+      <!-- Survey Form -->
+      <form @submit.prevent="submitForm" x-ref="assessmentForm">
+        <template x-for="(q, index) in questions" :key="index">
+          <div class="mb-6">
+            <label class="block text-lg font-semibold mb-2" x-text="q.text"></label>
+            <div class="flex justify-between sm:gap-2 text-sm sm:text-base">
+              <template x-for="n in [1,2,3,4,5]">
+                <label class="flex flex-col items-center space-y-1 w-full">
+                  <input type="radio" :name="'q'+index" :value="n" x-model="responses[index]" class="radio radio-sm radio-primary" />
+                  <span x-text="n"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+        </template>
+
+        <div class="mt-8 text-center">
+          <button type="submit" class="btn btn-primary">View Results</button>
+        </div>
+      </form>
+
+      <!-- Results Section -->
+      <div x-show="resultText" x-transition class="mt-8 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+        <p class="text-green-800 font-semibold">Top challenge identified:</p>
+        <p class="text-lg mt-1" x-text="resultText"></p>
+        <a href="#customer-challenge-breakdown" class="text-blue-600 underline mt-2 inline-block">Jump to breakdown →</a>
+      </div>
+    </div>
+  </section>
+
+<!-- AlpineJS Logic -->
+<script>
+  function assessmentForm() {
+    return {
+      questions: [
+        { text: 'Q1. We are concerned about our employee turnover rate.', dimension: 'Clear Problem' },
+        { text: 'Q2. High performers lack a transparent path to promotion.', dimension: 'Clear Problem' },
+        { text: 'Q3. Our strategic plans are delayed due to workforce issues.', dimension: 'Affected Goals' },
+        { text: 'Q4. We often fail to deliver workforce plans on time.', dimension: 'Affected Goals' },
+        { text: 'Q5. We lack forward-looking insights into personnel risk.', dimension: 'System Failure' },
+        { text: 'Q6. Our tools do not offer real-time workforce analytics.', dimension: 'System Failure' },
+        { text: 'Q7. We can’t easily track recruitment cost trends.', dimension: 'Impacted Roles' },
+        { text: 'Q8. Executives are slow to respond to emerging risks.', dimension: 'Impacted Roles' },
+        { text: 'Q9. Most of our promotion candidates are in high-risk positions.', dimension: 'Data Symptoms' },
+        { text: 'Q10. Our hiring cycle is excessively long.', dimension: 'Data Symptoms' },
+      ],
+      responses: Array(10).fill(null),
+      resultText: '',
+      submitForm() {
+        if (this.responses.includes(null)) {
+          alert('Please answer all questions before submitting.');
+          return;
+        }
+        const scoreMap = {};
+        this.questions.forEach((q, i) => {
+          if (!scoreMap[q.dimension]) scoreMap[q.dimension] = 0;
+          scoreMap[q.dimension] += Number(this.responses[i]);
+        });
+        const topDimension = Object.entries(scoreMap).sort((a, b) => b[1] - a[1])[0][0];
+        const emojiMap = {
+          'Clear Problem': '❓ Clear Problem',
+          'Affected Goals': '🎯 Affected Goals',
+          'System Failure': '🧬 System Failure',
+          'Impacted Roles': '🧑‍🤝‍🧑 Impacted Roles',
+          'Data Symptoms': '📊 Data Symptoms'
+        };
+        this.resultText = emojiMap[topDimension] + ' — This is your most pressing concern based on the responses.';
+      }
+    };
+  }
+</script>
+
+
+    <!-- Section 1.5: Customer Challenge Breakdown -->
+  <section class="bg-slate-50 py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold mb-8 text-center">Customer Challenge Breakdown</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Block 1 -->
+        <div class="rounded-lg p-6 bg-white shadow-sm border-l-4 border-red-400">
+          <h3 class="text-xl font-bold mb-2">❓ Clear Problem</h3>
+          <p class="text-gray-700 text-lg">
+            High turnover, employee burnout, budget overrun, and opaque promotion mechanisms are hurting workforce sustainability.
+          </p>
+        </div>
+
+        <!-- Block 2 -->
+        <div class="rounded-lg p-6 bg-white shadow-sm border-l-4 border-yellow-500">
+          <h3 class="text-xl font-bold mb-2">🎯 Affected Goals</h3>
+          <p class="text-gray-700 text-lg">
+            Executives are unable to fulfill annual workforce plans, balance team composition, or support strategic execution due to lack of visibility.
+          </p>
+        </div>
+
+        <!-- Block 3 -->
+        <div class="rounded-lg p-6 bg-white shadow-sm border-l-4 border-blue-400">
+          <h3 class="text-xl font-bold mb-2">🧬 System Failure</h3>
+          <p class="text-gray-700 text-lg">
+            Legacy HR tools lack prediction capabilities. BI dashboards are outdated, and spreadsheets can’t keep pace with organization-wide risk.
+          </p>
+        </div>
+
+        <!-- Block 4 -->
+        <div class="rounded-lg p-6 bg-white shadow-sm border-l-4 border-purple-500">
+          <h3 class="text-xl font-bold mb-2">🧑‍🤝‍🧑 Impacted Roles</h3>
+          <p class="text-gray-700 text-lg">
+            This limits HRBP planning, blinds CFOs to recruiting cost trends, and delays CHRO response to early warning signals.
+          </p>
+        </div>
+
+        <!-- Block 5 -->
+        <div class="rounded-lg p-6 bg-white shadow-sm border-l-4 border-green-500 md:col-span-2">
+          <h3 class="text-xl font-bold mb-2">📊 Data Symptoms</h3>
+          <p class="text-gray-700 text-lg">
+            Turnover rate is 28%. 75% of targeted promotion candidates are in high-risk categories. Time-to-hire remains excessively long.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Section 2: Problem & Objectives -->
+  <section class="py-12 px-6 max-w-6xl mx-auto border-b">
+    <h2 class="text-2xl font-bold mb-4">Problem & Objectives</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-2">Current Challenges</h3>
+        <ul class="list-disc pl-5">
+          <li>High turnover and burnout</li>
+          <li>Lack of overwork prediction</li>
+          <li>Limited internal mobility visibility</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-2">Business Goals</h3>
+        <ul class="list-disc pl-5">
+          <li>Improve talent retention</li>
+          <li>Reduce burnout-related costs</li>
+          <li>Maximize promotion fairness</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: How Valor88 Helps -->
+  <section class="py-12 px-6 max-w-6xl mx-auto border-b">
+    <h2 class="text-2xl font-bold mb-6">How Valor88 Helps</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6 bg-white shadow rounded">
+        <h3 class="font-bold text-lg mb-2">TalentScores™ Engine</h3>
+        <p class="mb-4">Quantifies individual and team potential across skills, roles, and performance drivers.</p>
+        <button class="btn btn-sm btn-primary">Learn More</button>
+      </div>
+      <div class="p-6 bg-white shadow rounded">
+        <h3 class="font-bold text-lg mb-2">Predictive Burnout Monitor</h3>
+        <p class="mb-4">Uses behavior and workload data to flag early burnout and attrition risk.</p>
+        <button class="btn btn-sm btn-primary">Learn More</button>
+      </div>
+      <div class="p-6 bg-white shadow rounded">
+        <h3 class="font-bold text-lg mb-2">Equity Intelligence</h3>
+        <p class="mb-4">Monitors promotion fairness and opportunity allocation by demographic.</p>
+        <button class="btn btn-sm btn-primary">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Metrics Dashboard Snapshot -->
+  <section class="py-12 px-6 max-w-6xl mx-auto border-b">
+    <h2 class="text-2xl font-bold mb-6">Key Metrics Dashboard Snapshot</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-base-200 p-6 rounded shadow text-center">
+        <p class="text-3xl font-bold text-blue-600">+22%</p>
+        <p class="text-gray-700">ROI uplift (CEO)</p>
+      </div>
+      <div class="bg-base-200 p-6 rounded shadow text-center">
+        <p class="text-3xl font-bold text-green-600">$150K+</p>
+        <p class="text-gray-700">Budget saved (CFO)</p>
+      </div>
+      <div class="bg-base-200 p-6 rounded shadow text-center">
+        <p class="text-3xl font-bold text-purple-600">87%</p>
+        <p class="text-gray-700">Prediction accuracy (CHRO)</p>
+      </div>
+      <div class="bg-base-200 p-6 rounded shadow text-center">
+        <p class="text-3xl font-bold text-yellow-600">4.4</p>
+        <p class="text-gray-700">Fairness score (DEI)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Business Outcomes -->
+  <section class="py-12 px-6 max-w-4xl mx-auto border-b">
+    <h2 class="text-2xl font-bold mb-6">Business Outcomes / ROI</h2>
+    <div class="overflow-x-auto">
+      <table class="table w-full bg-white shadow rounded">
+        <thead>
+          <tr class="bg-base-200 text-left">
+            <th class="py-3 px-4">Outcome Metric</th>
+            <th class="py-3 px-4">Achieved Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2 px-4">Turnover</td>
+            <td class="py-2 px-4">↓ 12%</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4">Prediction accuracy</td>
+            <td class="py-2 px-4">↑ from 68% to 87%</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4">Annual Budget Saved</td>
+            <td class="py-2 px-4">$150,000+</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4">Employee Satisfaction</td>
+            <td class="py-2 px-4">↑ from 3.6 → 4.4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+
+  <!-- Section 6: Call to Action -->
+  <section class="py-12 px-6 max-w-6xl mx-auto text-center">
+    <h2 class="text-2xl font-bold mb-6">Take the Next Step</h2>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button class="btn btn-primary">Request a Demo</button>
+      <button class="btn btn-secondary">Download Related Resource</button>
+      <button class="btn btn-outline" onclick="location.href='use_cases_page.html'">Back to Use Cases</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-base-200 text-base-content py-10 mt-12">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="font-bold text-lg mb-2">Valor88</h3>
+        <p class="text-sm text-gray-600">AI-powered Workforce Intelligence to drive ROI and reduce workforce risk.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Quick Links</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="product_page.html" class="hover:underline">Product</a></li>
+          <li><a href="use_cases_page.html" class="hover:underline">Use Cases</a></li>
+          <li><a href="vision_page.html" class="hover:underline">Vision</a></li>
+          <li><a href="contact_page.html" class="hover:underline">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-2">Get in Touch</h4>
+        <p class="text-sm">Email: hello@valor88.com</p>
+        <p class="text-sm">Phone: +1 (555) 123-4567</p>
+      </div>
+    </div>
+    <div class="text-center text-sm mt-10 text-gray-500">
+      © 2025 Valor88. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Newsletter Subscription Confirmed - Valor88</title>
+  <link href="./assets/static/uxbot/daisyui@5.css" rel="stylesheet" type="text/css">
+  <script src="./assets/static/uxbot/tailwind-browser@4.js"></script>
+  <link href="./assets/static/uxbot/daisyui-themes.css" rel="stylesheet" type="text/css">
+  <script src="./assets/3/3.1.1/iconify.min.js"></script>
+  <style>
+    :root {
+      --color-primary: rgba(30, 58, 138, 1);
+      --color-primary-content: rgba(255, 255, 255, 1);
+      --color-secondary: rgba(212, 175, 55, 1);
+      --color-secondary-content: rgba(17, 24, 39, 1);
+      --color-accent: rgba(16, 185, 129, 1);
+      --color-accent-content: rgba(255, 255, 255, 1);
+      --color-base-100: rgba(249, 250, 251, 1);
+      --color-base-200: rgba(243, 244, 246, 1);
+      --color-base-300: rgba(209, 213, 219, 1);
+      --color-base-content: rgba(55, 65, 81, 1);
+      --color-info: rgba(14, 165, 233, 1);
+      --color-success: rgba(16, 185, 129, 1);
+      --color-warning: rgba(245, 158, 11, 1);
+      --color-error: rgba(239, 68, 68, 1);
+      --radius-box: 0.5rem;
+      --border: 1px;
+    }
+    .heading-1 { font-size: 3rem; line-height: 3.5rem; font-weight: 700; }
+    .heading-2 { font-size: 2rem; line-height: 2.5rem; font-weight: 600; }
+    .body-text { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
+    .success-card { border: 1px solid rgba(16,185,129,0.2); background: linear-gradient(135deg,rgba(16,185,129,0.05) 0%,rgba(249,250,251,1) 100%); }
+    .btn-hover-scale { transition: transform 0.2s; }
+    .btn-hover-scale:hover { transform: scale(1.02); }
+  </style>
+</head>
+<body class="bg-base-100 min-h-screen flex flex-col">
+  <div data-section-id="common_header" class="navbar bg-base-100 sticky top-0 z-50 header-backdrop shadow-sm px-4">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <button tabindex="0" class="btn btn-ghost" onclick="toggleMobileMenu()">
+          <span class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+        </button>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow-lg bg-base-100 rounded-box w-52 hidden" data-mobile-menu="">
+          <li><a onclick="navigateTo('product_page')" class="link-hover-primary">Product</a></li>
+          <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary">Use Cases</a></li>
+          <li><a onclick="navigateTo('vision_page')" class="link-hover-primary">Vision</a></li>
+          <li><a onclick="navigateTo('contact_page')" class="link-hover-primary">Contact</a></li>
+          <li class="border-t mt-2 pt-2">
+            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo('demo_request_form')">Request Demo</button>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+        <span class="text-xl font-bold text-base-content cursor-pointer" onclick="navigateTo('homepage')">Valor88</span>
+      </div>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 gap-2">
+        <li><a onclick="navigateTo('product_page')" class="link-hover-primary body-text">Product</a></li>
+        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary body-text">Use Cases</a></li>
+        <li><a onclick="navigateTo('vision_page')" class="link-hover-primary body-text">Vision</a></li>
+        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary body-text">Contact</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end hidden lg:flex">
+      <button class="btn btn-primary button-text" onclick="navigateTo('demo_request_form')">Request Demo</button>
+    </div>
+  </div>
+  <main class="flex-1 flex flex-col">
+    <div class="py-16 px-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="card success-card shadow-lg p-8">
+          <div class="flex justify-center mb-6">
+            <div class="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center">
+              <span class="iconify text-success" data-icon="heroicons:check-circle-solid" data-width="40"></span>
+            </div>
+          </div>
+          <h1 class="heading-1 text-base-content mb-4">Subscription Confirmed!</h1>
+          <p class="body-text text-base-content/70 mb-6">Thank you for subscribing to our newsletter. You will now receive the latest updates and insights from Valor88.</p>
+          <div class="divider opacity-30"></div>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+            <button onclick="navigateTo('homepage')" class="btn btn-primary btn-lg btn-hover-scale">
+              <span class="iconify" data-icon="heroicons:home" data-width="20"></span>
+              Back to Homepage
+            </button>
+            <button onclick="navigateTo('demo_request_form')" class="btn btn-outline btn-lg btn-hover-scale">
+              <span class="iconify" data-icon="heroicons:presentation-chart-bar" data-width="20"></span>
+              Request a Demo
+            </button>
+            <button onclick="navigateTo('download_form')" class="btn btn-outline btn-lg btn-hover-scale">
+              <span class="iconify" data-icon="heroicons:arrow-down-tray" data-width="20"></span>
+              Download Executive Brief
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div data-section-id="common_footer" class="bg-base-200">
+    <footer class="footer footer-horizontal p-10 text-base-content max-w-6xl mx-auto">
+      <aside>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+          <span class="text-xl font-bold">Valor88</span>
+        </div>
+        <p class="text-sm text-base-content opacity-70 max-w-xs">AI-powered Workforce Risk & Opportunity Platform for strategic talent optimization.</p>
+        <div class="flex gap-3 mt-4">
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:linkedin" data-width="20"></span></a>
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:twitter" data-width="20"></span></a>
+        </div>
+      </aside>
+      <nav>
+        <header class="footer-title text-base-content">Product</header>
+        <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')">TalentScores™ Engine</a>
+        <a class="link link-hover body-text" onclick="navigateTo('predictive_intelligence_page')">Predictive Intelligence</a>
+        <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')">Real-Time Dashboards</a>
+        <a class="link link-hover body-text" onclick="navigateTo('demo_request_form')">Request Demo</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Use Cases</header>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Executive Teams</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">HR Leadership</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Board Members</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">All Use Cases</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Company</header>
+        <a class="link link-hover body-text" onclick="navigateTo('vision_page')">Vision</a>
+        <a class="link link-hover body-text" onclick="navigateTo('contact_page')">Contact</a>
+        <a class="link link-hover body-text" onclick="navigateTo('booking_calendar')">Book Discovery Call</a>
+        <div class="form-control w-full max-w-xs mt-4">
+          <label class="label"><span class="label-text text-sm">Newsletter</span></label>
+          <div class="join">
+            <input type="email" placeholder="Enter email" class="input input-bordered join-item input-sm w-full" id="newsletter-email">
+            <button class="btn btn-primary join-item btn-sm" onclick="handleNewsletterSignup(document.getElementById('newsletter-email').value)">Subscribe</button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+      <aside><p class="text-sm">© 2025 Valor88. All rights reserved. Built by leaders from BlackRock, AI startups, and Fortune 100 HR teams.</p></aside>
+    </footer>
+  </div>
+  <script>
+    window.navigateTo = function(targetPageId) {
+      const isInIframe = window.self !== window.top;
+      const targetFileName = `${targetPageId}.html`;
+      if (isInIframe) {
+        window.parent.postMessage({ type: 'iframeNavigation', targetPageId }, '*');
+      } else {
+        window.location.href = targetFileName;
+      }
+    };
+    window.toggleMobileMenu = function() {
+      const menu = document.querySelector('[data-mobile-menu]');
+      if (menu) menu.classList.toggle('hidden');
+    };
+    window.handleNewsletterSignup = function(email) {
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      alert('Thank you for subscribing to our newsletter!');
+      setTimeout(() => { navigateTo('newsletter_confirmation'); }, 1500);
+    };
+  </script>
+</body>
+</html> 

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Discovery Call - Valor88</title>
+  <link href="./assets/static/uxbot/daisyui@5.css" rel="stylesheet" type="text/css">
+  <script src="./assets/static/uxbot/tailwind-browser@4.js"></script>
+  <link href="./assets/static/uxbot/daisyui-themes.css" rel="stylesheet" type="text/css">
+  <script src="./assets/3/3.1.1/iconify.min.js"></script>
+  <style>
+    :root {
+      --color-primary: rgba(30, 58, 138, 1);
+      --color-primary-content: rgba(255, 255, 255, 1);
+      --color-secondary: rgba(212, 175, 55, 1);
+      --color-secondary-content: rgba(17, 24, 39, 1);
+      --color-accent: rgba(16, 185, 129, 1);
+      --color-accent-content: rgba(255, 255, 255, 1);
+      --color-base-100: rgba(249, 250, 251, 1);
+      --color-base-200: rgba(243, 244, 246, 1);
+      --color-base-300: rgba(209, 213, 219, 1);
+      --color-base-content: rgba(55, 65, 81, 1);
+      --color-info: rgba(14, 165, 233, 1);
+      --color-success: rgba(16, 185, 129, 1);
+      --color-warning: rgba(245, 158, 11, 1);
+      --color-error: rgba(239, 68, 68, 1);
+      --radius-box: 0.5rem;
+      --border: 1px;
+    }
+    .heading-1 { font-size: 3rem; line-height: 3.5rem; font-weight: 700; }
+    .heading-2 { font-size: 2rem; line-height: 2.5rem; font-weight: 600; }
+    .heading-3 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; }
+    .body-text { font-size: 1rem; line-height: 1.5rem; font-weight: 400; }
+    .button-text { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; }
+    .form-card { transition: box-shadow 0.2s ease-in-out; }
+    .form-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .form-input { transition: border-color 0.2s, box-shadow 0.2s; }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+    .btn-primary-custom { background-color: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-content); transition: all 0.2s; }
+    .btn-primary-custom:hover { background-color: rgba(30,58,138,0.9); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30,58,138,0.3); }
+    .btn-secondary-custom { background-color: transparent; border: 1px solid var(--color-base-300); color: var(--color-base-content); transition: all 0.2s; }
+    .btn-secondary-custom:hover { background-color: var(--color-base-200); border-color: var(--color-base-content); }
+  </style>
+</head>
+<body class="bg-base-100 min-h-screen flex flex-col">
+  <div data-section-id="common_header" class="navbar bg-base-100 sticky top-0 z-50 header-backdrop shadow-sm px-4">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <button tabindex="0" class="btn btn-ghost" onclick="toggleMobileMenu()">
+          <span class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+        </button>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow-lg bg-base-100 rounded-box w-52 hidden" data-mobile-menu="">
+          <li><a onclick="navigateTo('product_page')" class="link-hover-primary">Product</a></li>
+          <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary">Use Cases</a></li>
+          <li><a onclick="navigateTo('vision_page')" class="link-hover-primary">Vision</a></li>
+          <li><a onclick="navigateTo('contact_page')" class="link-hover-primary">Contact</a></li>
+          <li class="border-t mt-2 pt-2">
+            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo('demo_request_form')">Request Demo</button>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+        <span class="text-xl font-bold text-base-content cursor-pointer" onclick="navigateTo('homepage')">Valor88</span>
+      </div>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 gap-2">
+        <li><a onclick="navigateTo('product_page')" class="link-hover-primary body-text">Product</a></li>
+        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary body-text">Use Cases</a></li>
+        <li><a onclick="navigateTo('vision_page')" class="link-hover-primary body-text">Vision</a></li>
+        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary body-text">Contact</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end hidden lg:flex">
+      <button class="btn btn-primary button-text" onclick="navigateTo('demo_request_form')">Request Demo</button>
+    </div>
+  </div>
+  <main class="flex-1 flex flex-col">
+    <div class="py-16 px-4 bg-base-100">
+      <div class="max-w-2xl mx-auto text-center">
+        <h1 class="heading-1 text-base-content mb-4">Book a Discovery Call</h1>
+        <p class="body-text text-base-content/70 max-w-xl mx-auto">Select a date and time for your 1:1 discovery call with our team. We look forward to connecting with you!</p>
+      </div>
+    </div>
+    <div class="max-w-xl mx-auto px-4 pb-16">
+      <div class="card bg-base-100 shadow-xl form-card">
+        <div class="card-body p-8">
+          <form id="calendarForm" class="space-y-6">
+            <div class="form-control">
+              <label class="label"><span class="label-text font-medium">Select Date *</span></label>
+              <input type="date" name="date" class="input input-bordered form-input" required>
+            </div>
+            <div class="form-control">
+              <label class="label"><span class="label-text font-medium">Select Time *</span></label>
+              <select name="time" class="select select-bordered form-input" required>
+                <option disabled selected value="">Select time slot</option>
+                <option value="09:00">09:00 - 09:30</option>
+                <option value="10:00">10:00 - 10:30</option>
+                <option value="11:00">11:00 - 11:30</option>
+                <option value="14:00">14:00 - 14:30</option>
+                <option value="15:00">15:00 - 15:30</option>
+                <option value="16:00">16:00 - 16:30</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label class="label"><span class="label-text font-medium">Time Zone</span></label>
+              <select name="timeZone" class="select select-bordered form-input">
+                <option disabled selected value="">Select your time zone</option>
+                <option value="PST">Pacific Standard Time (PST)</option>
+                <option value="MST">Mountain Standard Time (MST)</option>
+                <option value="CST">Central Standard Time (CST)</option>
+                <option value="EST">Eastern Standard Time (EST)</option>
+                <option value="GMT">Greenwich Mean Time (GMT)</option>
+                <option value="CET">Central European Time (CET)</option>
+                <option value="JST">Japan Standard Time (JST)</option>
+                <option value="AEST">Australian Eastern Standard Time (AEST)</option>
+              </select>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+              <button type="submit" class="btn btn-primary-custom btn-lg flex-1">
+                <span class="iconify" data-icon="heroicons:check-circle" data-width="20"></span>
+                <span>Confirm Booking</span>
+              </button>
+              <button type="button" class="btn btn-secondary-custom btn-lg" onclick="navigateTo('contact_page')">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <div data-section-id="common_footer" class="bg-base-200">
+    <footer class="footer footer-horizontal p-10 text-base-content max-w-6xl mx-auto">
+      <aside>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+          <span class="text-xl font-bold">Valor88</span>
+        </div>
+        <p class="text-sm text-base-content opacity-70 max-w-xs">AI-powered Workforce Risk & Opportunity Platform for strategic talent optimization.</p>
+        <div class="flex gap-3 mt-4">
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:linkedin" data-width="20"></span></a>
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:twitter" data-width="20"></span></a>
+        </div>
+      </aside>
+      <nav>
+        <header class="footer-title text-base-content">Product</header>
+        <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')">TalentScores™ Engine</a>
+        <a class="link link-hover body-text" onclick="navigateTo('predictive_intelligence_page')">Predictive Intelligence</a>
+        <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')">Real-Time Dashboards</a>
+        <a class="link link-hover body-text" onclick="navigateTo('demo_request_form')">Request Demo</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Use Cases</header>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Executive Teams</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">HR Leadership</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Board Members</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">All Use Cases</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Company</header>
+        <a class="link link-hover body-text" onclick="navigateTo('vision_page')">Vision</a>
+        <a class="link link-hover body-text" onclick="navigateTo('contact_page')">Contact</a>
+        <a class="link link-hover body-text" onclick="navigateTo('booking_calendar')">Book Discovery Call</a>
+        <div class="form-control w-full max-w-xs mt-4">
+          <label class="label"><span class="label-text text-sm">Newsletter</span></label>
+          <div class="join">
+            <input type="email" placeholder="Enter email" class="input input-bordered join-item input-sm w-full" id="newsletter-email">
+            <button class="btn btn-primary join-item btn-sm" onclick="handleNewsletterSignup(document.getElementById('newsletter-email').value)">Subscribe</button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+      <aside><p class="text-sm">© 2025 Valor88. All rights reserved. Built by leaders from BlackRock, AI startups, and Fortune 100 HR teams.</p></aside>
+    </footer>
+  </div>
+  <script>
+    window.navigateTo = function(targetPageId) {
+      const isInIframe = window.self !== window.top;
+      const targetFileName = `${targetPageId}.html`;
+      if (isInIframe) {
+        window.parent.postMessage({ type: 'iframeNavigation', targetPageId }, '*');
+      } else {
+        window.location.href = targetFileName;
+      }
+    };
+    window.toggleMobileMenu = function() {
+      const menu = document.querySelector('[data-mobile-menu]');
+      if (menu) menu.classList.toggle('hidden');
+    };
+    window.handleNewsletterSignup = function(email) {
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      alert('Thank you for subscribing to our newsletter!');
+      setTimeout(() => { navigateTo('newsletter_confirmation'); }, 1500);
+    };
+    document.getElementById('calendarForm').onsubmit = function(e) {
+      e.preventDefault();
+      alert('Your discovery call is booked! You will receive a calendar invite soon.');
+      setTimeout(() => { navigateTo('booking_confirmation'); }, 1200);
+    };
+  </script>
+</body>
+</html> 

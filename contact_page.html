@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Discovery Call - Valor88</title>
+  <link href="./assets/static/uxbot/daisyui@5.css" rel="stylesheet" type="text/css">
+  <script src="./assets/static/uxbot/tailwind-browser@4.js"></script>
+  <link href="./assets/static/uxbot/daisyui-themes.css" rel="stylesheet" type="text/css">
+  <script src="./assets/3/3.1.1/iconify.min.js"></script>
+  <style>
+    :root {
+      --color-primary: rgba(30, 58, 138, 1);
+      --color-primary-content: rgba(255, 255, 255, 1);
+      --color-secondary: rgba(212, 175, 55, 1);
+      --color-secondary-content: rgba(17, 24, 39, 1);
+      --color-accent: rgba(16, 185, 129, 1);
+      --color-accent-content: rgba(255, 255, 255, 1);
+      --color-base-100: rgba(249, 250, 251, 1);
+      --color-base-200: rgba(243, 244, 246, 1);
+      --color-base-300: rgba(209, 213, 219, 1);
+      --color-base-content: rgba(55, 65, 81, 1);
+      --color-info: rgba(14, 165, 233, 1);
+      --color-success: rgba(16, 185, 129, 1);
+      --color-warning: rgba(245, 158, 11, 1);
+      --color-error: rgba(239, 68, 68, 1);
+      --radius-box: 0.5rem;
+      --border: 1px;
+    }
+    .heading-1 { font-size: 2.2rem; line-height: 2.7rem; font-weight: 700; }
+    .heading-2 { font-size: 1.4rem; line-height: 2rem; font-weight: 600; }
+    .heading-3 { font-size: 1.1rem; line-height: 1.6rem; font-weight: 600; }
+    .body-text { font-size: 0.92rem; line-height: 1.3rem; font-weight: 400; }
+    .button-text { font-size: 0.8rem; line-height: 1.1rem; font-weight: 600; }
+    .form-card { transition: box-shadow 0.2s ease-in-out; }
+    .form-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    .form-input { transition: border-color 0.2s, box-shadow 0.2s; font-size:0.92rem; }
+    .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(30,58,138,0.1); }
+    .btn-primary-custom, .btn-secondary-custom, .btn, .btn-outline { font-size:0.92rem; }
+    .btn-primary-custom { background-color: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-content); transition: all 0.2s; }
+    .btn-primary-custom:hover { background-color: rgba(30,58,138,0.9); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30,58,138,0.3); }
+    .btn-secondary-custom { background-color: transparent; border: 1px solid var(--color-base-300); color: var(--color-base-content); transition: all 0.2s; }
+    .btn-secondary-custom:hover { background-color: var(--color-base-200); border-color: var(--color-base-content); }
+    .contact-link { transition: all 0.2s; }
+    .contact-link:hover { color: var(--color-primary); text-decoration: underline; }
+    .input-sm, .btn-sm { font-size:0.92rem; height:2.1rem; }
+  </style>
+</head>
+<body class="bg-base-100 min-h-screen flex flex-col">
+  <div data-section-id="common_header" class="navbar bg-base-100 sticky top-0 z-50 header-backdrop shadow-sm px-4">
+    <div class="navbar-start">
+      <div class="dropdown lg:hidden">
+        <button tabindex="0" class="btn btn-ghost" onclick="toggleMobileMenu()">
+          <span class="iconify" data-icon="heroicons:bars-3" data-width="24"></span>
+        </button>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow-lg bg-base-100 rounded-box w-52 hidden" data-mobile-menu="">
+          <li><a onclick="navigateTo('product_page')" class="link-hover-primary">Product</a></li>
+          <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary">Use Cases</a></li>
+          <li><a onclick="navigateTo('vision_page')" class="link-hover-primary">Vision</a></li>
+          <li><a onclick="navigateTo('contact_page')" class="link-hover-primary">Contact</a></li>
+          <li class="border-t mt-2 pt-2">
+            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo('demo_request_form')">Request Demo</button>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+        <span class="text-xl font-bold text-base-content cursor-pointer" onclick="navigateTo('homepage')">Valor88</span>
+      </div>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 gap-2">
+        <li><a onclick="navigateTo('product_page')" class="link-hover-primary body-text">Product</a></li>
+        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary body-text">Use Cases</a></li>
+        <li><a onclick="navigateTo('vision_page')" class="link-hover-primary body-text">Vision</a></li>
+        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary body-text bg-primary text-primary-content">Contact</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end hidden lg:flex">
+      <button class="btn btn-primary button-text" onclick="navigateTo('demo_request_form')">Request Demo</button>
+    </div>
+  </div>
+  <main class="flex-1 flex flex-col">
+    <!-- What Happens Next Section (moved up) -->
+    <div class="py-12 bg-base-200 rounded-xl shadow-sm mb-8">
+      <div class="max-w-3xl mx-auto text-center mb-10">
+        <h2 class="heading-2 text-base-content mb-4">What Happens Next?</h2>
+        <p class="body-text text-base-content/70">Here's what you can expect after submitting your message or booking a call</p>
+      </div>
+      <div class="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-4xl mx-auto">
+        <!-- Step 1 -->
+        <div class="flex-1 bg-base-100 rounded-lg shadow p-6 flex flex-col items-center">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <span class="iconify text-primary" data-icon="heroicons:envelope" data-width="28"></span>
+          </div>
+          <h3 class="heading-3 text-base-content mb-2">Message Received</h3>
+          <p class="body-text text-base-content/70">Our team will review your message or booking request promptly.</p>
+          <span class="text-xs text-base-content/50 mt-2">Within 1 business day</span>
+        </div>
+        <!-- Step 2 -->
+        <div class="flex-1 bg-base-100 rounded-lg shadow p-6 flex flex-col items-center">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <span class="iconify text-primary" data-icon="heroicons:phone-arrow-up-right" data-width="28"></span>
+          </div>
+          <h3 class="heading-3 text-base-content mb-2">Personal Follow-up</h3>
+          <p class="body-text text-base-content/70">We’ll reach out to you by email or phone to answer your questions or confirm your call time.</p>
+          <span class="text-xs text-base-content/50 mt-2">Usually same day</span>
+        </div>
+        <!-- Step 3 -->
+        <div class="flex-1 bg-base-100 rounded-lg shadow p-6 flex flex-col items-center">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+            <span class="iconify text-primary" data-icon="heroicons:calendar-days" data-width="28"></span>
+          </div>
+          <h3 class="heading-3 text-base-content mb-2">Discovery Call or Support</h3>
+          <p class="body-text text-base-content/70">Join your scheduled call or receive the help you need. We’re here to support your goals!</p>
+          <span class="text-xs text-base-content/50 mt-2">At your chosen time</span>
+        </div>
+      </div>
+    </div>
+    <div class="py-16 px-4 bg-base-100">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="heading-1 text-base-content mb-4">Contact Us</h1>
+        <p class="body-text text-base-content/70 max-w-2xl mx-auto">Have a question or want to book a discovery call? Leave us a message or use the options below to get in touch. Our team will respond within 1 business day.</p>
+      </div>
+    </div>
+    <div class="max-w-4xl mx-auto px-4 pb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Contact Form -->
+        <div class="card bg-base-100 shadow-xl form-card">
+          <div class="card-body p-8">
+            <form id="contactForm" class="space-y-6">
+              <div class="form-control">
+                <label class="label"><span class="label-text font-medium">Your Name *</span></label>
+                <input type="text" name="name" placeholder="Enter your name" class="input input-bordered form-input input-sm" required>
+              </div>
+              <div class="form-control">
+                <label class="label"><span class="label-text font-medium">Email Address *</span></label>
+                <input type="email" name="email" placeholder="Enter your email" class="input input-bordered form-input input-sm" required>
+                <div class="error-message" id="email-error" style="font-size:0.8rem;min-height:1.1rem;"></div>
+              </div>
+              <div class="form-control">
+                <label class="label"><span class="label-text font-medium">Message *</span></label>
+                <textarea name="message" class="textarea textarea-bordered form-input h-20 input-sm" placeholder="How can we help you?" required></textarea>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                <button type="submit" class="btn btn-primary-custom btn-sm flex-1 whitespace-nowrap" style="font-size:0.92rem;min-width:120px;">
+                  <span class="iconify" data-icon="heroicons:paper-airplane" data-width="18"></span>
+                  <span style="white-space:nowrap;">Send Message</span>
+                </button>
+                <button type="button" class="btn btn-secondary-custom btn-sm" style="font-size:0.92rem;min-width:120px;" onclick="navigateTo('homepage')">Back to Homepage</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- Contact Info -->
+        <div class="flex flex-col gap-8 justify-center">
+          <div class="card bg-base-100 shadow-sm p-6 text-center">
+            <div class="flex justify-center mb-4">
+              <span class="iconify text-primary" data-icon="heroicons:envelope" data-width="32"></span>
+            </div>
+            <h3 class="font-semibold text-base-content mb-2">Email Support</h3>
+            <a href="mailto:support@valor88.com" class="contact-link text-base-content/70">support@valor88.com</a>
+          </div>
+          <div class="card bg-base-100 shadow-sm p-6 text-center">
+            <div class="flex justify-center mb-4">
+              <span class="iconify text-primary" data-icon="heroicons:phone" data-width="32"></span>
+            </div>
+            <h3 class="font-semibold text-base-content mb-2">Phone Support</h3>
+            <a href="tel:+18001234567" class="contact-link text-base-content/70">+1 (800) 123-4567</a>
+          </div>
+          <div class="card bg-base-100 shadow-sm p-6 text-center">
+            <div class="flex justify-center mb-4">
+              <span class="iconify text-primary" data-icon="heroicons:chat-bubble-left-right" data-width="32"></span>
+            </div>
+            <h3 class="font-semibold text-base-content mb-2">Live Chat</h3>
+            <button onclick="openLiveChat()" class="contact-link text-base-content/70">Start conversation</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <button onclick="navigateTo('booking_calendar')" class="btn btn-primary btn-sm mx-2" style="font-size:0.92rem;min-width:140px;">
+          <span class="iconify" data-icon="heroicons:calendar-days" data-width="18"></span>
+          Book Discovery Call
+        </button>
+        <button onclick="navigateTo('homepage')" class="btn btn-outline btn-sm mx-2" style="font-size:0.92rem;min-width:140px;">
+          <span class="iconify" data-icon="heroicons:home" data-width="18"></span>
+          Back to Homepage
+        </button>
+      </div>
+    </div>
+  </main>
+  <div data-section-id="common_footer" class="bg-base-200">
+    <footer class="footer footer-horizontal p-10 text-base-content max-w-6xl mx-auto">
+      <aside>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+          <span class="text-xl font-bold">Valor88</span>
+        </div>
+        <p class="text-sm text-base-content opacity-70 max-w-xs">AI-powered Workforce Risk & Opportunity Platform for strategic talent optimization.</p>
+        <div class="flex gap-3 mt-4">
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:linkedin" data-width="20"></span></a>
+          <a class="btn btn-ghost btn-sm"><span class="iconify" data-icon="mdi:twitter" data-width="20"></span></a>
+        </div>
+      </aside>
+      <nav>
+        <header class="footer-title text-base-content">Product</header>
+        <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')">TalentScores™ Engine</a>
+        <a class="link link-hover body-text" onclick="navigateTo('predictive_intelligence_page')">Predictive Intelligence</a>
+        <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')">Real-Time Dashboards</a>
+        <a class="link link-hover body-text" onclick="navigateTo('demo_request_form')">Request Demo</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Use Cases</header>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Executive Teams</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">HR Leadership</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">Board Members</a>
+        <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')">All Use Cases</a>
+      </nav>
+      <nav>
+        <header class="footer-title text-base-content">Company</header>
+        <a class="link link-hover body-text" onclick="navigateTo('vision_page')">Vision</a>
+        <a class="link link-hover body-text" onclick="navigateTo('contact_page')">Contact</a>
+        <a class="link link-hover body-text" onclick="navigateTo('booking_calendar')">Book Discovery Call</a>
+        <div class="form-control w-full max-w-xs mt-4">
+          <label class="label"><span class="label-text text-sm">Newsletter</span></label>
+          <div class="join">
+            <input type="email" placeholder="Enter email" class="input input-bordered join-item input-sm w-full" id="newsletter-email">
+            <button class="btn btn-primary join-item btn-sm" onclick="handleNewsletterSignup(document.getElementById('newsletter-email').value)">Subscribe</button>
+          </div>
+        </div>
+      </nav>
+    </footer>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+      <aside><p class="text-sm">© 2025 Valor88. All rights reserved. Built by leaders from BlackRock, AI startups, and Fortune 100 HR teams.</p></aside>
+    </footer>
+  </div>
+  <script>
+    window.navigateTo = function(targetPageId) {
+      const isInIframe = window.self !== window.top;
+      const targetFileName = `${targetPageId}.html`;
+      if (isInIframe) {
+        window.parent.postMessage({ type: 'iframeNavigation', targetPageId }, '*');
+      } else {
+        window.location.href = targetFileName;
+      }
+    };
+    window.toggleMobileMenu = function() {
+      const menu = document.querySelector('[data-mobile-menu]');
+      if (menu) menu.classList.toggle('hidden');
+    };
+    window.openLiveChat = function() {
+      alert('Live chat will be available soon. Please use email or phone for immediate assistance.');
+    };
+    // Newsletter signup handler (copied from homepage)
+    window.handleNewsletterSignup = function(email) {
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      alert('Thank you for subscribing to our newsletter!');
+      setTimeout(() => { navigateTo('newsletter_confirmation'); }, 1500);
+    };
+    // Contact form submission (simulate, with email validation)
+    document.getElementById('contactForm').onsubmit = function(e) {
+      e.preventDefault();
+      var email = this.email.value.trim();
+      var emailError = document.getElementById('email-error');
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        emailError.textContent = 'Please enter a valid email address';
+        this.email.focus();
+        return;
+      } else {
+        emailError.textContent = '';
+      }
+      alert('Thank you for your message! Our team will get back to you soon.');
+      this.reset();
+    };
+  </script>
+</body>
+</html> 

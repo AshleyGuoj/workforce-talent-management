@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valor88 - AI-Powered Talent Assessment Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        :root {
+            --font-size: 14px;
+            --background: #ffffff;
+            --foreground: oklch(0.145 0 0);
+            --card: #ffffff;
+            --card-foreground: oklch(0.145 0 0);
+            --primary: #030213;
+            --primary-foreground: oklch(1 0 0);
+            --secondary: oklch(0.95 0.0058 264.53);
+            --secondary-foreground: #030213;
+            --muted: #ececf0;
+            --muted-foreground: #717182;
+            --accent: #e9ebef;
+            --accent-foreground: #030213;
+            --destructive: #d4183d;
+            --destructive-foreground: #ffffff;
+            --border: rgba(0, 0, 0, 0.1);
+            --input: transparent;
+            --input-background: #f3f3f5;
+            --switch-background: #cbced4;
+            --font-weight-medium: 500;
+            --font-weight-normal: 400;
+            --ring: oklch(0.708 0 0);
+            --radius: 0.625rem;
+        }
+
+        body {
+            font-size: var(--font-size);
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+
+        .progress-bar {
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+        }
+
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #374151;
+            padding: 0.75rem 2rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-sm {
+            width: 16px;
+            height: 16px;
+        }
+
+        .icon-lg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge-primary {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        .badge-secondary {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+
+        .badge-outline {
+            background-color: transparent;
+            border: 1px solid #d1d5db;
+            color: #374151;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .heatmap-cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.875rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .risk-high { background-color: #dc2626; }
+        .risk-medium { background-color: #f59e0b; }
+        .risk-low { background-color: #10b981; }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            .desktop-menu {
+                display: none;
+            }
+        }
+
+        .prediction-progress {
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .prediction-progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .status-completed { background-color: #10b981; }
+        .status-in-progress { background-color: #3b82f6; }
+        .status-pending { background-color: #9ca3af; }
+
+        .talent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .talent-card {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center mr-3">
+                            <div class="w-4 h-4 bg-white rounded-sm"></div>
+                        </div>
+                        <h1 class="text-xl font-semibold text-gray-900">Valor88</h1>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-8 desktop-menu">
+                        <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Product</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Use Cases</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Vision</a>
+                        <a href="#" class="text-gray-600 hover:text-gray-900 font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="btn-primary">Request Demo</button>
+                </div>
+            </nav>
+        </div>
+        
+        <div class="gradient-bg py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="badge badge-primary mb-6">
+                    AI-Powered Talent Assessment Platform
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold mb-8 text-gray-900 tracking-tight">
+                    Empower Strategic<br />
+                    <span class="text-blue-600">Talent Decisions with AI</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-4xl mx-auto leading-relaxed">
+                    Transform your talent strategy with Valor88's AI-powered platform. Make 
+                    data-driven decisions, reduce hiring costs by 30%, and identify top 
+                    performers with 99.9% accuracy.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <button class="btn-primary text-lg px-8 py-3">Request a Demo</button>
+                    <button class="btn-secondary text-lg px-8 py-3 border-yellow-400 text-yellow-700 hover:bg-yellow-50">
+                        Download Executive Brief
+                    </button>
+                </div>
+                <div class="mt-8">
+                    <a href="#engine" class="text-gray-600 hover:text-blue-600 font-medium">
+                        Explore Product →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TalentScores Engine -->
+    <section id="engine" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="badge badge-primary mb-6">Core Assessment Engine</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
+                    18-Dimension Signal Framework
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Built on behavioral science and organizational psychology, our comprehensive 
+                    talent assessment framework precisely quantifies performance across all dimensions 
+                    to provide scientific evidence for strategic talent decisions.
+                </p>
+            </div>
+
+            <!-- 18 Signal Dimensions Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-24">
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="brain" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Cognitive Ability</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Logical reasoning and problem-solving skills</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="users" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Teamwork</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Cross-departmental collaboration efficiency</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="target" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Goal Orientation</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Task completion and goal achievement rates</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="trending-up" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Learning Growth</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Skill development speed and adaptability</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="message-square" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Communication</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Information delivery and influence building</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="clock" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Time Management</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Work efficiency and priority control</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="star" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Professional Skills</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Core competencies and expertise depth</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="zap" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Innovation</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Creative output and change driving force</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="shield" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Resilience</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Stress handling and emotional stability</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="award" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Leadership Potential</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Team management and decision-making ability</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="lightbulb" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Insight</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Market sensitivity and forward thinking</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="check-circle" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Execution</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Plan implementation and result delivery</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="bar-chart-3" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Data Analysis</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Data interpretation and decision support</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="heart" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Cultural Fit</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Values alignment and organizational commitment</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="book-open" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Knowledge Breadth</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Cross-domain knowledge and comprehensive skills</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="compass" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Strategic Thinking</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Global perspective and long-term planning</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="globe" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Global Mindset</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Cross-cultural understanding and global thinking</p>
+                    </div>
+                </div>
+                <div class="card card-hover hover-lift">
+                    <div class="text-center">
+                        <div class="w-14 h-14 mx-auto mb-4 bg-blue-100 rounded-xl flex items-center justify-center">
+                            <i data-lucide="rocket" class="icon text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold mb-3 text-gray-900">Growth Potential</h3>
+                        <p class="text-sm text-gray-600 leading-relaxed">Career development space and upward trajectory</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Level Examples -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="card bg-blue-50 border-blue-200 border-2">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">Role-Level Scoring</h3>
+                    <p class="text-gray-700 mb-4">Individual capability profiling for specific positions</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Personal skill radar chart</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Position fit analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Development recommendations</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card bg-indigo-50 border-indigo-200 border-2">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-3">Department-Level Scoring</h3>
+                    <p class="text-gray-700 mb-4">Team capability distribution and collaboration efficiency</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Team capability heatmap</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Collaboration network analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Team optimization suggestions</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="card bg-purple-50 border-purple-200 border-2">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-3">Organization-Level Scoring</h3>
+                    <p class="text-gray-700 mb-4">Company-wide talent structure and strategic alignment</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Talent pipeline analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Organizational health assessment</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i data-lucide="check-circle" class="icon-sm text-green-600 mr-3"></i>
+                            <span class="text-sm text-gray-700">Strategic talent planning</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Showcase -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="badge badge-primary mb-6">Intelligent Dashboard</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
+                    Real-time Insights, Data-Driven Decisions
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Transform complex talent data into clear visual insights through interactive heatmaps 
+                    and distribution charts. Quickly identify organizational risks and opportunities 
+                    to support precise talent management decisions.
+                </p>
+            </div>
+
+            <!-- Department Capability Heatmap -->
+            <div class="card mb-12">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-gray-900 flex items-center mb-2">
+                        <i data-lucide="activity" class="icon text-blue-600 mr-3"></i>
+                        Department Capability Heatmap
+                    </h3>
+                    <p class="text-gray-600">Core capability dimension comparison across departments</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="text-left py-4 px-6 font-semibold text-gray-900">Department</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900">Cognitive Ability</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900">Teamwork</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900">Leadership Potential</th>
+                                <th class="text-center py-4 px-4 font-semibold text-gray-900">Innovation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-6 font-semibold text-gray-900">Engineering</td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">85</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-medium">78</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">65</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">92</div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-6 font-semibold text-gray-900">Sales</td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-medium">75</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">88</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">82</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">70</div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-6 font-semibold text-gray-900">Marketing</td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-medium">80</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">85</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-medium">75</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">88</div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-6 font-semibold text-gray-900">HR</td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-medium">78</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">92</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">88</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">65</div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50">
+                                <td class="py-4 px-6 font-semibold text-gray-900">Finance</td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-low">88</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">70</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">72</div>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <div class="heatmap-cell risk-high">60</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Risk Distribution -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-red-600 flex items-center mb-2">
+                            <i data-lucide="alert-triangle" class="icon text-red-600 mr-3"></i>
+                            Risk Distribution
+                        </h3>
+                        <p class="text-gray-600">Key risk areas requiring immediate attention</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-red-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">High Turnover Risk</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">12 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 8%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">8%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-orange-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Skill Gap</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">25 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 16%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">16%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-yellow-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Promotion Bottleneck</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">18 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 12%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">12%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-blue-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Team Collaboration</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">8 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 5%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">5%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opportunity Distribution -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-green-600 flex items-center mb-2">
+                            <i data-lucide="trending-up" class="icon text-green-600 mr-3"></i>
+                            Opportunity Distribution
+                        </h3>
+                        <p class="text-gray-600">Talent opportunities ready to be unlocked</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-green-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">High Potential Talent</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">32 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 21%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">21%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-purple-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Cross-Department Transfer</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">15 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 10%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">10%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-indigo-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Leadership Development</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">20 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 13%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">13%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded-full bg-cyan-500 mr-4"></div>
+                                <span class="font-semibold text-gray-900">Skill Enhancement</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-600 font-medium">45 people</span>
+                                <div class="w-24 progress-bar h-2">
+                                    <div class="progress-fill" style="width: 29%"></div>
+                                </div>
+                                <span class="text-sm text-gray-500 w-10 font-medium">29%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prediction Module -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="badge badge-primary mb-6">AI Prediction Engine</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
+                    Intelligent Prediction & Simulation Optimization
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Predict employee burnout risk based on historical data and behavioral patterns. 
+                    Simulate internal transfer effects to proactively manage talent retention and optimize allocation.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Burnout Prediction -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-purple-600 flex items-center mb-2">
+                            <i data-lucide="brain" class="icon text-purple-600 mr-3"></i>
+                            Burnout Risk Prediction
+                        </h3>
+                        <p class="text-gray-600">Predictions based on workload intensity and performance changes</p>
+                    </div>
+                    <div class="space-y-6">
+                        <!-- John Smith -->
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="font-semibold text-gray-900">John Smith</span>
+                                    <span class="text-gray-500 ml-2">(Engineering)</span>
+                                </div>
+                                <i data-lucide="trending-up" class="icon-sm text-red-500 rotate-180"></i>
+                            </div>
+                            
+                            <div class="flex items-center space-x-6">
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Current</span>
+                                        <span class="text-gray-900">75%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-amber-500" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                                
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Predicted</span>
+                                        <span class="text-gray-900">85%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-red-500" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-4">
+                                <div class="badge bg-amber-50 text-amber-700 border-amber-200 border">Medium Risk</div>
+                                <div class="badge bg-red-50 text-red-700 border-red-200 border">High Risk</div>
+                            </div>
+                        </div>
+
+                        <!-- Sarah Johnson -->
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="font-semibold text-gray-900">Sarah Johnson</span>
+                                    <span class="text-gray-500 ml-2">(Sales)</span>
+                                </div>
+                                <div class="w-4 h-4 bg-gray-400 rounded-full"></div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-6">
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Current</span>
+                                        <span class="text-gray-900">45%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-green-500" style="width: 45%"></div>
+                                    </div>
+                                </div>
+                                
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                                
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Predicted</span>
+                                        <span class="text-gray-900">48%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-green-500" style="width: 48%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-4">
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">Low Risk</div>
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">Low Risk</div>
+                            </div>
+                        </div>
+
+                        <!-- Mike Chen -->
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <span class="font-semibold text-gray-900">Mike Chen</span>
+                                    <span class="text-gray-500 ml-2">(Marketing)</span>
+                                </div>
+                                <i data-lucide="trending-down" class="icon-sm text-green-500"></i>
+                            </div>
+                            
+                            <div class="flex items-center space-x-6">
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Current</span>
+                                        <span class="text-gray-900">62%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-amber-500" style="width: 62%"></div>
+                                    </div>
+                                </div>
+                                
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                                
+                                <div class="flex-1">
+                                    <div class="flex justify-between text-sm mb-2 font-medium">
+                                        <span class="text-gray-700">Predicted</span>
+                                        <span class="text-gray-900">55%</span>
+                                    </div>
+                                    <div class="prediction-progress bg-gray-200">
+                                        <div class="prediction-progress-fill bg-green-500" style="width: 55%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-between mt-4">
+                                <div class="badge bg-amber-50 text-amber-700 border-amber-200 border">Medium Risk</div>
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">Low Risk</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transfer Simulation -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-blue-600 flex items-center mb-2">
+                            <i data-lucide="refresh-cw" class="icon text-blue-600 mr-3"></i>
+                            Internal Transfer Simulation
+                        </h3>
+                        <p class="text-gray-600">AI-matched optimal position transfer solutions</p>
+                    </div>
+                    <div class="space-y-8">
+                        <!-- Alex Rodriguez -->
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-gray-900">Alex Rodriguez</h4>
+                                <div class="badge bg-blue-100 text-blue-800">Match 87%</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="p-4 bg-gray-50 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-2 font-medium">Current Position</p>
+                                    <p class="font-semibold text-gray-900">Junior Software Engineer</p>
+                                    <p class="text-sm text-gray-600">Engineering</p>
+                                </div>
+                                <div class="p-4 bg-blue-50 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-2 font-medium">Suggested Position</p>
+                                    <p class="font-semibold text-blue-900">Product Manager</p>
+                                    <p class="text-sm text-blue-700">Product</p>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="text-sm text-green-700 mb-3 flex items-center font-semibold">
+                                        <i data-lucide="check-circle" class="icon-sm mr-2"></i>
+                                        Benefits
+                                    </p>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="text-gray-700">• Leverage communication strengths</li>
+                                        <li class="text-gray-700">• Expand business perspective</li>
+                                        <li class="text-gray-700">• Enhance career growth</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-amber-700 mb-3 flex items-center font-semibold">
+                                        <i data-lucide="alert-circle" class="icon-sm mr-2"></i>
+                                        Considerations
+                                    </p>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="text-gray-700">• Reduced technical depth</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+                                <button class="btn-secondary text-sm px-4 py-2 hover:bg-blue-50">
+                                    View Detailed Analysis
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Jessica Wang -->
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-gray-900">Jessica Wang</h4>
+                                <div class="badge bg-blue-100 text-blue-800">Match 91%</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="p-4 bg-gray-50 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-2 font-medium">Current Position</p>
+                                    <p class="font-semibold text-gray-900">Marketing Specialist</p>
+                                    <p class="text-sm text-gray-600">Marketing</p>
+                                </div>
+                                <div class="p-4 bg-blue-50 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-2 font-medium">Suggested Position</p>
+                                    <p class="font-semibold text-blue-900">Sales Manager</p>
+                                    <p class="text-sm text-blue-700">Sales</p>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <p class="text-sm text-green-700 mb-3 flex items-center font-semibold">
+                                        <i data-lucide="check-circle" class="icon-sm mr-2"></i>
+                                        Benefits
+                                    </p>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="text-gray-700">• Customer relationship advantage</li>
+                                        <li class="text-gray-700">• Performance-driven match</li>
+                                        <li class="text-gray-700">• Management potential</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-amber-700 mb-3 flex items-center font-semibold">
+                                        <i data-lucide="alert-circle" class="icon-sm mr-2"></i>
+                                        Considerations
+                                    </p>
+                                    <ul class="text-sm space-y-2">
+                                        <li class="text-gray-700">• Increased work pressure</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-200 flex justify-end">
+                                <button class="btn-secondary text-sm px-4 py-2 hover:bg-blue-50">
+                                    View Detailed Analysis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talent Discovery -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <div class="badge badge-primary mb-6">Talent Discovery & Development</div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 tracking-tight">
+                    Discover Internal Talent, Plan Growth Paths
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Intelligently identify high-potential talent and create personalized development paths through 
+                    scientific learning systems and ROI analysis to maximize talent value.
+                </p>
+            </div>
+
+            <!-- High-Potential Talent Discovery -->
+            <div class="mb-20">
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-gray-900">
+                    <i data-lucide="search" class="icon-lg text-blue-600 mr-3"></i>
+                    High-Potential Talent Discovery
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- David Kim -->
+                    <div class="card talent-card">
+                        <div class="mb-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900">David Kim</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Senior Software Engineer</p>
+                                    <p class="text-xs text-gray-500">Engineering</p>
+                                </div>
+                                <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">78% Ready</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-semibold text-gray-700">Development Target</span>
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-semibold text-blue-900">Engineering Director</p>
+                                <p class="text-sm text-blue-700">Engineering</p>
+                                <p class="text-xs text-blue-600 mt-1">Est. 6-8 months</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                <i data-lucide="star" class="icon-sm mr-2"></i>
+                                Key Strengths
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge bg-green-100 text-green-800 text-xs">Technical Architecture</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">Team Management</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">Project Experience</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-amber-700 flex items-center">
+                                <i data-lucide="target" class="icon-sm mr-2"></i>
+                                Development Focus
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Strategic Planning</div>
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Cross-functional Collaboration</div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-full text-sm">View Development Plan</button>
+                    </div>
+
+                    <!-- Lisa Zhang -->
+                    <div class="card talent-card">
+                        <div class="mb-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900">Lisa Zhang</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Marketing Manager</p>
+                                    <p class="text-xs text-gray-500">Marketing</p>
+                                </div>
+                                <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">72% Ready</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-semibold text-gray-700">Development Target</span>
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-semibold text-blue-900">Product Director</p>
+                                <p class="text-sm text-blue-700">Product</p>
+                                <p class="text-xs text-blue-600 mt-1">Est. 8-12 months</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                <i data-lucide="star" class="icon-sm mr-2"></i>
+                                Key Strengths
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge bg-green-100 text-green-800 text-xs">Market Insights</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">User Research</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">Data Analysis</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-amber-700 flex items-center">
+                                <i data-lucide="target" class="icon-sm mr-2"></i>
+                                Development Focus
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Product Design</div>
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Technical Understanding</div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-full text-sm">View Development Plan</button>
+                    </div>
+
+                    <!-- Marcus Johnson -->
+                    <div class="card talent-card">
+                        <div class="mb-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900">Marcus Johnson</h4>
+                                    <p class="text-sm text-gray-600 mt-1">Sales Manager</p>
+                                    <p class="text-xs text-gray-500">Sales</p>
+                                </div>
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">85% Ready</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-sm font-semibold text-gray-700">Development Target</span>
+                                <i data-lucide="arrow-right" class="icon-sm text-gray-400"></i>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <p class="font-semibold text-blue-900">Regional Director</p>
+                                <p class="text-sm text-blue-700">Sales</p>
+                                <p class="text-xs text-blue-600 mt-1">Est. 3-6 months</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                <i data-lucide="star" class="icon-sm mr-2"></i>
+                                Key Strengths
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge bg-green-100 text-green-800 text-xs">Customer Relationships</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">Performance Achievement</div>
+                                <div class="badge bg-green-100 text-green-800 text-xs">Team Building</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-sm font-semibold mb-3 text-amber-700 flex items-center">
+                                <i data-lucide="target" class="icon-sm mr-2"></i>
+                                Development Focus
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Financial Management</div>
+                                <div class="badge badge-outline border-amber-300 text-amber-700 text-xs">Strategic Thinking</div>
+                            </div>
+                        </div>
+
+                        <button class="btn-primary w-full text-sm">View Development Plan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Paths & ROI -->
+            <div>
+                <h3 class="text-3xl font-bold mb-12 flex items-center text-gray-900">
+                    <i data-lucide="route" class="icon-lg text-green-600 mr-3"></i>
+                    Learning Paths & L&D ROI Analysis
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Engineer to Technical Leader -->
+                    <div class="card">
+                        <div class="mb-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900">Engineer to Technical Leader</h4>
+                                    <p class="text-sm text-gray-600 mt-1">6 months • 8 modules</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="flex items-center text-green-600 mb-1">
+                                        <i data-lucide="dollar-sign" class="icon-sm mr-1"></i>
+                                        <span class="text-xl font-bold">285%</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500">Expected ROI</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-3xl font-bold text-blue-600">45</p>
+                                <p class="text-sm text-gray-600 mt-1">Participants</p>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-3xl font-bold text-green-600">87%</p>
+                                <p class="text-sm text-gray-600 mt-1">Completion Rate</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-semibold text-gray-900">Learning Progress</span>
+                                <span class="text-xs text-gray-500">4 core modules</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-completed"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Technical Leadership Fundamentals</p>
+                                        <p class="text-xs text-gray-500">2 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Completed</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-in-progress"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Team Management in Practice</p>
+                                        <p class="text-xs text-gray-500">3 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">In Progress</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-pending"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Project Management Methodology</p>
+                                        <p class="text-xs text-gray-500">3 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Pending</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-pending"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Technical Architecture Design</p>
+                                        <p class="text-xs text-gray-500">4 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-3">
+                            <button class="btn-secondary flex-1 text-sm hover:bg-gray-50">View Details</button>
+                            <button class="btn-primary flex-1 text-sm">Assign Learning</button>
+                        </div>
+                    </div>
+
+                    <!-- Sales Excellence Program -->
+                    <div class="card">
+                        <div class="mb-6">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-xl font-semibold text-gray-900">Sales Excellence Program</h4>
+                                    <p class="text-sm text-gray-600 mt-1">4 months • 6 modules</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="flex items-center text-green-600 mb-1">
+                                        <i data-lucide="dollar-sign" class="icon-sm mr-1"></i>
+                                        <span class="text-xl font-bold">340%</span>
+                                    </div>
+                                    <p class="text-xs text-gray-500">Expected ROI</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-3xl font-bold text-blue-600">32</p>
+                                <p class="text-sm text-gray-600 mt-1">Participants</p>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <p class="text-3xl font-bold text-green-600">92%</p>
+                                <p class="text-sm text-gray-600 mt-1">Completion Rate</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-semibold text-gray-900">Learning Progress</span>
+                                <span class="text-xs text-gray-500">4 core modules</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-completed"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Advanced Sales Techniques</p>
+                                        <p class="text-xs text-gray-500">2 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Completed</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-completed"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Customer Relationship Management</p>
+                                        <p class="text-xs text-gray-500">3 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Completed</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-in-progress"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Negotiation & Closing</p>
+                                        <p class="text-xs text-gray-500">2 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">In Progress</div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="status-dot status-pending"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">Team Management Basics</p>
+                                        <p class="text-xs text-gray-500">3 weeks</p>
+                                    </div>
+                                    <div class="badge badge-secondary text-xs">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex space-x-3">
+                            <button class="btn-secondary flex-1 text-sm hover:bg-gray-50">View Details</button>
+                            <button class="btn-primary flex-1 text-sm">Assign Learning</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center mr-3">
+                            <div class="w-4 h-4 bg-white rounded-sm"></div>
+                        </div>
+                        <h3 class="text-xl font-semibold">Valor88</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Empower strategic talent decisions with AI. Transform your talent strategy 
+                        and unlock organizational potential through data-driven insights.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="btn-primary">Request Demo</button>
+                        <button class="btn-secondary border-gray-600 text-white hover:bg-gray-800">
+                            Free Trial
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-white">Product</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Talent Assessment</a></li>
+                        <li><a href="#" class="hover:text-white">Risk Prediction</a></li>
+                        <li><a href="#" class="hover:text-white">Career Path Planning</a></li>
+                        <li><a href="#" class="hover:text-white">Smart Recommendations</a></li>
+                        <li><a href="#" class="hover:text-white">Analytics Dashboard</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-white">Solutions</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Enterprise</a></li>
+                        <li><a href="#" class="hover:text-white">Mid-Market</a></li>
+                        <li><a href="#" class="hover:text-white">Human Resources</a></li>
+                        <li><a href="#" class="hover:text-white">Business Departments</a></li>
+                        <li><a href="#" class="hover:text-white">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-white">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white">API Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">Customer Support</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">Status Page</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-12">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">
+                        © 2025 Valor88. All rights reserved.
+                    </p>
+                    <div class="flex space-x-8 mt-4 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Privacy Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Terms of Service</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some basic interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button click handlers
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent.includes('Request Demo') || this.textContent.includes('Request a Demo')) {
+                        alert('Demo request feature would be implemented here!');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

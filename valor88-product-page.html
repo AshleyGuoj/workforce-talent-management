@@ -1496,79 +1496,100 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-base-300 text-base-content py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                <div>
-                    <div class="flex items-center mb-6">
-                        <div class="logo-container mr-3">
-                            <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
-                        </div>
-                        <h3 class="text-xl font-semibold gradient-text">Valor88</h3>
-                    </div>
-                    <p class="text-base-content/70 mb-6 leading-relaxed">
-                        Empower strategic talent decisions with AI. Transform your talent strategy 
-                        and unlock organizational potential through data-driven insights.
-                    </p>
-                    <div class="flex space-x-4">
-                        <button class="btn btn-primary btn-glow shadow-lg" onclick="navigateTo('demo_request_form')">
-                            <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20"></span>
-                            Request Demo
-                        </button>
-                        <button class="btn btn-outline border-base-content/20 text-base-content hover:bg-base-content hover:text-base-300">
-                            Free Trial
-                        </button>
-                    </div>
+    <div data-section-id="common_footer" data-section-type="common_footer" class="bg-base-200">
+        <footer class="footer footer-horizontal p-10 text-base-content max-w-6xl mx-auto">
+            <aside data-type="container">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32" data-type="icon"></span>
+                    <span class="text-xl font-bold" data-type="text">Valor88</span>
                 </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-6 text-base-content">Product</h4>
-                    <ul class="space-y-3 text-base-content/70">
-                        <li><a onclick="navigateTo('talent_scores_page')" class="link-hover-primary cursor-pointer">Talent Assessment</a></li>
-                        <li><a onclick="navigateTo('predictive_intelligence_page')" class="link-hover-primary cursor-pointer">Risk Prediction</a></li>
-                        <li><a onclick="navigateTo('real_time_dashboards_page')" class="link-hover-primary cursor-pointer">Career Path Planning</a></li>
-                        <li><a onclick="navigateTo('talent_scores_page')" class="link-hover-primary cursor-pointer">Smart Recommendations</a></li>
-                        <li><a onclick="navigateTo('real_time_dashboards_page')" class="link-hover-primary cursor-pointer">Analytics Dashboard</a></li>
-                    </ul>
+                <p class="text-sm text-base-content opacity-70 max-w-xs" data-type="text">
+                    Empower strategic talent decisions with AI. Transform your talent strategy and unlock organizational potential through data-driven insights.
+                </p>
+                <div class="flex gap-3 mt-4">
+                    <button class="btn btn-primary btn-sm" onclick="navigateTo('demo_request_form')" data-type="button">
+                        <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20" data-type="icon"></span>
+                        Request Demo
+                    </button>
+                    <button class="btn btn-outline btn-sm" data-type="button">
+                        Free Trial
+                    </button>
                 </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-6 text-base-content">Solutions</h4>
-                    <ul class="space-y-3 text-base-content/70">
-                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Enterprise</a></li>
-                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Mid-Market</a></li>
-                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Human Resources</a></li>
-                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Business Departments</a></li>
-                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Consulting</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-6 text-base-content">Support</h4>
-                    <ul class="space-y-3 text-base-content/70">
-                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Help Center</a></li>
-                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">API Documentation</a></li>
-                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Customer Support</a></li>
-                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Contact Us</a></li>
-                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Status Page</a></li>
-                    </ul>
-                </div>
-            </div>
+            </aside>
             
-            <div class="border-t border-base-content/20 pt-12">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <p class="text-base-content/70 text-sm">
-                        © 2025 Valor88. All rights reserved.
-                    </p>
-                    <div class="flex space-x-8 mt-4 md:mt-0">
-                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Privacy Policy</a>
-                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Terms of Service</a>
-                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Cookie Policy</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+            <nav data-type="container">
+                <header class="footer-title text-base-content" data-type="text">Product</header>
+                <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')" data-type="text">Talent Assessment</a>
+                <a class="link link-hover body-text" onclick="navigateTo('predictive_intelligence_page')" data-type="text">Risk Prediction</a>
+                <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')" data-type="text">Career Path Planning</a>
+                <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')" data-type="text">Smart Recommendations</a>
+                <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')" data-type="text">Analytics Dashboard</a>
+            </nav>
+            
+            <nav data-type="container">
+                <header class="footer-title text-base-content" data-type="text">Solutions</header>
+                <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')" data-type="text">Enterprise</a>
+                <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')" data-type="text">Mid-Market</a>
+                <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')" data-type="text">Human Resources</a>
+                <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')" data-type="text">Business Departments</a>
+                <a class="link link-hover body-text" onclick="navigateTo('use_cases_page')" data-type="text">Consulting</a>
+            </nav>
+            
+            <nav data-type="container">
+                <header class="footer-title text-base-content" data-type="text">Support</header>
+                <a class="link link-hover body-text" onclick="navigateTo('contact_page')" data-type="text">Help Center</a>
+                <a class="link link-hover body-text" onclick="navigateTo('contact_page')" data-type="text">API Documentation</a>
+                <a class="link link-hover body-text" onclick="navigateTo('contact_page')" data-type="text">Customer Support</a>
+                <a class="link link-hover body-text" onclick="navigateTo('contact_page')" data-type="text">Contact Us</a>
+                <a class="link link-hover body-text" onclick="navigateTo('contact_page')" data-type="text">Status Page</a>
+            </nav>
+        </footer>
+        
+        <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+            <aside data-type="container">
+                <p class="text-sm" data-type="text">© 2025 Valor88. All rights reserved. Built by leaders from BlackRock, AI startups, and Fortune 100 HR teams.</p>
+            </aside>
+        </footer>
+    </div>
+    
+    <style>
+        [data-section-id="common_footer"] .footer-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-base-content);
+        }
+        
+        [data-section-id="common_footer"] .link {
+            color: var(--color-base-content);
+            opacity: 0.8;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        [data-section-id="common_footer"] .link:hover {
+            opacity: 1;
+            color: var(--color-primary);
+        }
+        
+        [data-section-id="common_footer"] .footer nav {
+            min-width: 200px;
+        }
+        
+        [data-section-id="common_footer"] .join .input {
+            min-width: 160px;
+        }
+        
+        @media (max-width: 768px) {
+            [data-section-id="common_footer"] .footer {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            [data-section-id="common_footer"] .footer nav {
+                min-width: auto;
+            }
+        }
+    </style>
 
     <script>
         // Navigation function

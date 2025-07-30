@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case Demo - Valor88</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Homepage CSS Variables */
+        :root {
+            --color-primary: rgba(30, 58, 138, 1);
+            --color-primary-content: rgba(255, 255, 255, 1);
+            --color-secondary: rgba(212, 175, 55, 1);
+            --color-secondary-content: rgba(17, 24, 39, 1);
+            --color-accent: rgba(16, 185, 129, 1);
+            --color-accent-content: rgba(255, 255, 255, 1);
+            --color-base-100: rgba(249, 250, 251, 1);
+            --color-base-200: rgba(243, 244, 246, 1);
+            --color-base-300: rgba(209, 213, 219, 1);
+            --color-base-content: rgba(55, 65, 81, 1);
+            --color-info: rgba(14, 165, 233, 1);
+            --color-success: rgba(16, 185, 129, 1);
+            --color-warning: rgba(245, 158, 11, 1);
+            --color-error: rgba(239, 68, 68, 1);
+            --radius-box: 0.5rem;
+            --border: 1px;
+        }
+
+        .heading-1 {
+            font-size: 3rem;
+            line-height: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .heading-2 {
+            font-size: 2rem;
+            line-height: 2.5rem;
+            font-weight: 600;
+        }
+        
+        .heading-3 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-weight: 600;
+        }
+        
+        .body-text {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            font-weight: 400;
+        }
+
+        .button-text {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 600;
+        }
+
+        .link-hover-primary {
+            transition: color 0.2s ease-in-out;
+        }
+
+        .link-hover-primary:hover {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+        }
+
+        .header-backdrop {
+            backdrop-filter: blur(8px);
+            background: rgba(249, 250, 251, 0.9);
+        }
+
+        [data-section-id="common_header"] {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            min-height: 4.5rem;
+            border-bottom: 1px solid rgba(209, 213, 219, 0.3);
+        }
+        
+        [data-section-id="common_header"] .header-backdrop {
+            backdrop-filter: blur(12px);
+            background: rgba(249, 250, 251, 0.9);
+        }
+        
+        [data-section-id="common_header"] .gradient-text {
+            background-image: linear-gradient(135deg, var(--color-primary), #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        [data-section-id="common_header"] .logo-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        [data-section-id="common_header"] .logo-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 58, 138, 0.1) 0%, rgba(30, 58, 138, 0) 70%);
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+        }
+        
+        [data-section-id="common_header"] .btn-glow {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--color-primary), #2563eb);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        [data-section-id="common_header"] .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: rotate(45deg);
+            animation: glow 3s infinite;
+        }
+        
+        @keyframes glow {
+            0% {
+                top: -50%;
+                left: -50%;
+            }
+            100% {
+                top: 150%;
+                left: 150%;
+            }
+        }
+        
+        [data-section-id="common_header"] .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(30, 58, 138, 0.5) !important;
+        }
+        
+        [data-section-id="common_header"] .menu a {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        [data-section-id="common_header"] .nav-link {
+            position: relative;
+            font-weight: 500;
+        }
+        
+        [data-section-id="common_header"] .nav-indicator {
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background: var(--color-primary);
+            transition: width 0.3s ease;
+        }
+        
+        [data-section-id="common_header"] .nav-link:hover .nav-indicator {
+            width: 100%;
+        }
+        
+        [data-section-id="common_header"] .nav-link.active {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        
+        [data-section-id="common_header"] .nav-link.active .nav-indicator {
+            width: 100%;
+        }
+
+        [data-section-id="common_header"] .nav-link.active {
+            background: transparent !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+        
+        [data-section-id="common_header"] .menu a.active {
+            color: var(--color-primary);
+        }
+        
+        [data-section-id="common_header"] .menu a.active .nav-indicator {
+            width: 100%;
+        }
+
+        [data-section-id="common_header"] .menu a.active {
+            background: transparent !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+        
+        [data-section-id="common_header"] .dropdown-content {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(209, 213, 219, 0.3);
+            animation: fadeInDown 0.3s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            [data-section-id="common_header"] .navbar-end {
+                display: none !important;
+            }
+        }
+
+        [data-section-id="common_footer"] .footer-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-base-content);
+        }
+        
+        [data-section-id="common_footer"] .link {
+            color: var(--color-base-content);
+            opacity: 0.8;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        [data-section-id="common_footer"] .link:hover {
+            opacity: 1;
+            color: var(--color-primary);
+        }
+        
+        [data-section-id="common_footer"] .footer nav {
+            min-width: 200px;
+        }
+        
+        [data-section-id="common_footer"] .join .input {
+            min-width: 160px;
+        }
+        
+        @media (max-width: 768px) {
+            [data-section-id="common_footer"] .footer {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            [data-section-id="common_footer"] .footer nav {
+                min-width: auto;
+            }
+        }
+
+        /* KPI Carousel Styles */
+        .kpi-carousel {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .kpi-carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .kpi-card {
+            min-width: 300px;
+            margin-right: 1rem;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .kpi-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+        
+        .kpi-arrow:hover {
+            background: #f3f4f6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .kpi-arrow.prev {
+            left: -20px;
+        }
+        
+        .kpi-arrow.next {
+            right: -20px;
+        }
+
+        /* Module Cards */
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Impact Cards */
+        .impact-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+        
+        .impact-card:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Role Tags */
+        .role-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tab Buttons */
+        .tab-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #6b7280;
+        }
+        
+        .tab-btn:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        .tab-btn.active:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-base-100">
+    <!-- Navigation -->
+    <div data-section-id="common_header" data-section-type="common_header" class="navbar bg-base-100 sticky top-0 z-50 header-backdrop shadow px-4">
+        <div class="navbar-start">
+            <div class="dropdown lg:hidden">
+                <button tabindex="0" class="btn btn-ghost hover:bg-base-200 rounded-lg" onclick="toggleMobileMenu()">
+                    <span class="iconify text-primary" data-icon="heroicons:bars-3" data-width="24"></span>
+                </button>
+                <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-10 p-4 shadow-lg bg-base-100 rounded-box w-64" data-mobile-menu="">
+                    <li><a data-type="text" onclick="navigateTo('product_page')" class="link-hover-primary py-3">Product</a></li>
+                    <li><a data-type="text" onclick="navigateTo('use_cases_page')" class="link-hover-primary py-3">Use Cases</a></li>
+                    <li><a data-type="text" onclick="navigateTo('vision_page')" class="link-hover-primary py-3">Vision</a></li>
+                    <li><a data-type="text" onclick="navigateTo('contact_page')" class="link-hover-primary py-3">Contact</a></li>
+                    <li class="border-t mt-4 pt-4">
+                        <button class="btn btn-primary w-full btn-glow shadow-lg" onclick="navigateTo('demo_request_form')">
+                            <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20"></span>
+                            <span data-type="text">Request Demo</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-2" data-type="container">
+                <div class="logo-container">
+                    <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="36" data-type="icon"></span>
+                </div>
+                <span class="text-xl font-bold text-base-content cursor-pointer gradient-text" data-type="text" onclick="navigateTo('homepage')">Valor88</span>
+            </div>
+        </div>
+        
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 gap-4">
+                <li>
+                    <a data-type="text" onclick="navigateTo('product_page')" class="link-hover-primary body-text nav-link">
+                        Product
+                        <span class="nav-indicator"></span>
+                    </a>
+                </li>
+                <li>
+                    <a data-type="text" onclick="navigateTo('use_cases_page')" class="link-hover-primary body-text nav-link active" style="background: transparent !important; box-shadow: none !important;">
+                        Use Cases
+                        <span class="nav-indicator"></span>
+                    </a>
+                </li>
+                <li>
+                    <a data-type="text" onclick="navigateTo('vision_page')" class="link-hover-primary body-text nav-link">
+                        Vision
+                        <span class="nav-indicator"></span>
+                    </a>
+                </li>
+                <li>
+                    <a data-type="text" onclick="navigateTo('contact_page')" class="link-hover-primary body-text nav-link">
+                        Contact
+                        <span class="nav-indicator"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="navbar-end hidden lg:flex">
+            <button class="btn btn-primary btn-glow shadow-lg" onclick="navigateTo('demo_request_form')" data-type="button">
+                <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20"></span>
+                <span data-type="text">Request Demo</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Header Section -->
+    <div class="gradient-bg py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Breadcrumb Navigation -->
+            <nav class="pt-6 pl-8 mb-12" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-2 text-sm text-gray-700">
+                    <li>
+                        <a href="Homepage.html" class="hover:text-blue-800 transition-colors font-medium">Homepage</a>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="mx-2 text-gray-500">/</span>
+                        <a href="Use_cases.html" class="hover:text-blue-800 transition-colors font-medium">Use Cases</a>
+                    </li>
+                    <li class="flex items-center">
+                        <span class="mx-2 text-gray-500">/</span>
+                        <span class="font-semibold text-gray-900">Talent Mobility Optimization</span>
+                    </li>
+                </ol>
+            </nav>
+            
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-bold mb-8 text-gray-900 tracking-tight">
+                    Empower Your<br />
+                    <span class="text-blue-600">Workforce Strategy</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-10 max-w-4xl mx-auto leading-relaxed">
+                    Explore how AI-driven insights help optimize talent allocation, boost ROI, and reduce inefficiencies.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Challenge Self-Assessment Module -->
+    <section class="bg-white py-12 px-6">
+        <div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow" x-data="assessmentForm()">
+            <h2 class="text-3xl font-bold mb-4 text-center">Challenge Self-Assessment</h2>
+            <p class="text-gray-700 mb-6 text-center max-w-2xl mx-auto">
+                Take 1 minute to assess which workforce challenges most impact your organization. Your answers will help tailor insights below.
+            </p>
+
+            <!-- Start Assessment Button -->
+            <div class="text-center mb-8">
+                <button @click="$refs.assessmentForm.scrollIntoView({ behavior: 'smooth' })" class="btn btn-primary">Start Assessment</button>
+            </div>
+
+            <!-- Survey Form -->
+            <form @submit.prevent="submitForm" x-ref="assessmentForm">
+                <template x-for="(q, index) in questions" :key="index">
+                    <div class="mb-6">
+                        <label class="block text-lg font-semibold mb-2" x-text="q.text"></label>
+                        <div class="flex justify-between sm:gap-2 text-sm sm:text-base">
+                            <template x-for="n in [1,2,3,4,5]">
+                                <label class="flex flex-col items-center space-y-1 w-full">
+                                    <input type="radio" :name="'q'+index" :value="n" x-model="responses[index]" class="radio radio-sm radio-primary" />
+                                    <span x-text="n"></span>
+                                </label>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <div class="mt-8 text-center">
+                    <button type="submit" class="btn btn-primary">View Results</button>
+                </div>
+            </form>
+
+            <!-- Results Section -->
+            <div x-show="resultText" x-transition class="mt-8 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                <p class="text-green-800 font-semibold">Top challenge identified:</p>
+                <p class="text-lg mt-1" x-text="resultText"></p>
+                <a href="#customer-challenge-breakdown" class="text-blue-600 underline mt-2 inline-block">Jump to breakdown →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW CONTENT SECTIONS -->
+
+    <!-- Use Case Demo Cards -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-2 text-gray-900 mb-4">Real-World Use Cases</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    See how Valor88 transforms talent strategy across different industries and company sizes
+                </p>
+            </div>
+
+            <!-- CEO/COO Use Cases -->
+            <div class="space-y-16">
+                <!-- CEO/COO Row -->
+                <div class="space-y-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">CEO/COO Use Cases</h3>
+                        <p class="text-gray-600">Strategic workforce planning and talent ROI optimization</p>
+                    </div>
+                <!-- CEO Cards Grid -->
+                <div id="ceo-cards" class="overflow-x-auto">
+                    <div class="flex flex-nowrap gap-6 pb-4" style="min-width: max-content;">
+                    <!-- CEO Use Case 1: TechCorp -->
+                    <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                <!-- Company Info -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-gray-900">TechCorp Solutions</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Fortune 500 • Technology</p>
+                                        <p class="text-xs text-gray-500">15,000 employees</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">CEO</div>
+                                        <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                    </div>
+                                </div>
+
+                                <!-- Strategic Focus -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                        <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                    </div>
+                                    <div class="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                        <p class="font-semibold text-blue-900">Talent ROI Optimization</p>
+                                        <p class="text-sm text-blue-700">Strategic workforce planning</p>
+                                        <p class="text-xs text-blue-600 mt-1">Est. 6-12 months</p>
+                                    </div>
+                                </div>
+
+                                <!-- Key Metrics -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                        Key Metrics Transformation
+                                    </p>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Talent ROI</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-red-500">1.2x</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">2.3x</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Productivity</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">+8%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">+22%</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Strategic Alignment</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">65%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">89%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Applied Modules -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                        Applied Modules
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                        <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                        <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                        <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                            </div>
+                        </div>
+
+                        <!-- CEO Use Case 2: FinServe -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                <!-- Company Info -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-gray-900">FinServe Bank</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Fortune 100 • Financial Services</p>
+                                        <p class="text-xs text-gray-500">8,500 employees</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">CEO</div>
+                                        <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                    </div>
+                                </div>
+
+                                <!-- Strategic Focus -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                        <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                    </div>
+                                    <div class="p-4 bg-blue-50 rounded-lg border border-green-200">
+                                        <p class="font-semibold text-blue-900">Market Expansion Support</p>
+                                        <p class="text-sm text-blue-700">Regulatory compliance focus</p>
+                                        <p class="text-xs text-blue-600 mt-1">Est. 8-15 months</p>
+                                    </div>
+                                </div>
+
+                                <!-- Key Metrics -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                        Key Metrics Transformation
+                                    </p>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Market Readiness</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-red-500">45%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">78%</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Talent Pipeline</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">12 roles</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">28 roles</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Time to Market</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-red-500">18 months</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">9 months</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Applied Modules -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                        Applied Modules
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                        <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                        <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                        <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                            </div>
+                        </div>
+
+                        <!-- CEO Use Case 3: HealthCorp -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                <!-- Company Info -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-gray-900">HealthCorp Medical</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Fortune 200 • Healthcare</p>
+                                        <p class="text-xs text-gray-500">12,000 employees</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">CEO</div>
+                                        <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                    </div>
+                                </div>
+
+                                <!-- Strategic Focus -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                        <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                    </div>
+                                    <div class="p-4 bg-blue-50 rounded-lg border border-purple-200">
+                                        <p class="font-semibold text-blue-900">Digital Transformation</p>
+                                        <p class="text-sm text-blue-700">Patient care optimization</p>
+                                        <p class="text-xs text-blue-600 mt-1">Est. 12-18 months</p>
+                                    </div>
+                                </div>
+
+                                <!-- Key Metrics -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                        Key Metrics Transformation
+                                    </p>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Digital Adoption</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-red-500">32%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">67%</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Patient Satisfaction</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">3.2/5</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">4.1/5</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Operational Efficiency</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">+15%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">+28%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Applied Modules -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                        Applied Modules
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                        <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                        <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                        <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                            </div>
+                        </div>
+
+                        <!-- CEO Use Case 4: RetailCorp -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                <!-- Company Info -->
+                                <div class="flex items-start justify-between mb-6">
+                                    <div>
+                                        <h4 class="text-xl font-semibold text-gray-900">RetailCorp Stores</h4>
+                                        <p class="text-sm text-gray-600 mt-1">Fortune 300 • Retail</p>
+                                        <p class="text-xs text-gray-500">25,000 employees</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="badge bg-blue-50 text-blue-700 border-blue-200 border">CEO</div>
+                                        <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                    </div>
+                                </div>
+
+                                <!-- Strategic Focus -->
+                                <div class="mb-6">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                        <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                    </div>
+                                    <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                        <p class="font-semibold text-yellow-900">Omnichannel Excellence</p>
+                                        <p class="text-sm text-yellow-700">Customer experience focus</p>
+                                        <p class="text-xs text-yellow-600 mt-1">Est. 9-14 months</p>
+                                    </div>
+                                </div>
+
+                                <!-- Key Metrics -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                        Key Metrics Transformation
+                                    </p>
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Customer Satisfaction</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-red-500">2.8/5</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">4.3/5</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Employee Engagement</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">58%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">82%</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-sm text-gray-700">Revenue Growth</span>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm font-semibold text-gray-500">+3%</span>
+                                                <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                <span class="text-sm font-semibold text-green-500">+12%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Applied Modules -->
+                                <div class="mb-6">
+                                    <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                        <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                        Applied Modules
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                        <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                        <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                        <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- CHRO/CPO Row -->
+                <div class="space-y-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">CHRO/CPO Use Cases</h3>
+                        <p class="text-gray-600">Employee retention, talent development, and workforce planning</p>
+                    </div>
+                    <!-- CHRO Cards Grid -->
+                    <div id="chro-cards" class="overflow-x-auto">
+                        <div class="flex flex-nowrap gap-6 pb-4" style="min-width: max-content;">
+                        <!-- CHRO Use Case 1: GlobalPharma Inc -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">GlobalPharma Inc</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 200 • Healthcare</p>
+                                            <p class="text-xs text-gray-500">12,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-red-50 text-red-700 border-red-200 border">CHRO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                            <p class="font-semibold text-red-900">Employee Retention Strategy</p>
+                                            <p class="text-sm text-red-700">Critical talent retention in healthcare</p>
+                                            <p class="text-xs text-red-600 mt-1">Est. 8-15 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Turnover Rate</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">22%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">16.5%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Employee Satisfaction</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.2/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.1/5</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Time-to-Hire</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">45 days</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">28 days</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                            <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                        <!-- CHRO Use Case 2: FinServe -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">FinServe Bank</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 100 • Financial Services</p>
+                                            <p class="text-xs text-gray-500">8,500 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-red-50 text-red-700 border-red-200 border">CHRO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                            <p class="font-semibold text-red-900">Compliance & Risk Management</p>
+                                            <p class="text-sm text-red-700">Regulatory workforce planning</p>
+                                            <p class="text-xs text-red-600 mt-1">Est. 8-15 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Compliance Risk</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">High</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">Low</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Succession Readiness</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">45%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">78%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Cultural Alignment</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.2/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.1/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                        <!-- CHRO Use Case 3: HealthCorp -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">HealthCorp Medical</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 200 • Healthcare</p>
+                                            <p class="text-xs text-gray-500">12,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-red-50 text-red-700 border-red-200 border">CHRO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                            <p class="font-semibold text-red-900">Workforce Planning</p>
+                                            <p class="text-sm text-red-700">Patient care optimization</p>
+                                            <p class="text-xs text-red-600 mt-1">Est. 12-18 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Staffing Efficiency</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">65%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">89%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Burnout Risk</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">High</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">Low</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Retention Rate</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">78%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">92%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                        <!-- CHRO Use Case 4: RetailCorp -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                            <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">RetailCorp Stores</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 300 • Retail</p>
+                                            <p class="text-xs text-gray-500">25,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-red-50 text-red-700 border-red-200 border">CHRO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-red-50 rounded-lg border border-red-200">
+                                            <p class="font-semibold text-red-900">Employee Experience</p>
+                                            <p class="text-sm text-red-700">Customer service excellence</p>
+                                            <p class="text-xs text-red-600 mt-1">Est. 9-14 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Employee Engagement</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">58%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">82%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Turnover Rate</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">22%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">14%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Customer Satisfaction</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.8/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.3/5</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CFO Row -->
+                <div class="space-y-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">CFO Use Cases</h3>
+                        <p class="text-gray-600">Cost optimization, talent ROI, and financial efficiency</p>
+                    </div>
+                    <!-- CFO Cards Grid -->
+                    <div id="cfo-cards" class="overflow-x-auto">
+                        <div class="flex flex-nowrap gap-6 pb-4" style="min-width: max-content;">
+
+                        <!-- CFO Use Case 1: TechCorp -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">TechCorp Solutions</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 500 • Technology</p>
+                                            <p class="text-xs text-gray-500">15,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-green-50 text-green-700 border-green-200 border">CFO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                            <p class="font-semibold text-green-900">Cost Optimization & ROI</p>
+                                            <p class="text-sm text-green-700">Financial efficiency focus</p>
+                                            <p class="text-xs text-green-600 mt-1">Est. 6-12 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Hiring Costs</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">$85K avg</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">$52K avg</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Internal vs External</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">30/70</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">65/35</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Talent ROI</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">1.2x</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">2.3x</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- CFO Use Case 2: FinServe -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">FinServe Bank</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 100 • Financial Services</p>
+                                            <p class="text-xs text-gray-500">8,500 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-green-50 text-green-700 border-green-200 border">CFO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                            <p class="font-semibold text-green-900">Regulatory Compliance</p>
+                                            <p class="text-sm text-green-700">Risk management focus</p>
+                                            <p class="text-xs text-green-600 mt-1">Est. 8-15 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Compliance Risk</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">High</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">Low</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Cost per Hire</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">$12K</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">$8K</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Budget Efficiency</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">78%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">92%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- CFO Use Case 3: HealthCorp -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">HealthCorp Medical</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 200 • Healthcare</p>
+                                            <p class="text-xs text-gray-500">12,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-green-50 text-green-700 border-green-200 border">CFO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                            <p class="font-semibold text-green-900">Operational Efficiency</p>
+                                            <p class="text-sm text-green-700">Cost reduction focus</p>
+                                            <p class="text-xs text-green-600 mt-1">Est. 12-18 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Operational Costs</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">+8%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">-12%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Revenue per Employee</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">$85K</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">$112K</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Budget Utilization</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">82%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">94%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- CFO Use Case 4: RetailCorp -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">RetailCorp Stores</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 300 • Retail</p>
+                                            <p class="text-xs text-gray-500">25,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-green-50 text-green-700 border-green-200 border">CFO</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-green-50 rounded-lg border border-green-200">
+                                            <p class="font-semibold text-green-900">Profitability Optimization</p>
+                                            <p class="text-sm text-green-700">Margin improvement focus</p>
+                                            <p class="text-xs text-green-600 mt-1">Est. 9-14 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Labor Costs</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">32%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">28%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Revenue per Store</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">$2.1M</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">$2.8M</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Profit Margins</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">8.5%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">12.3%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEI/HRBP Row -->
+                <div class="space-y-8">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">DEI/HRBP Use Cases</h3>
+                        <p class="text-gray-600">Diversity, equity, inclusion, and talent development</p>
+                    </div>
+                    <!-- DEI Cards Grid -->
+                    <div id="dei-cards" class="overflow-x-auto">
+                        <div class="flex flex-nowrap gap-6 pb-4" style="min-width: max-content;">
+                        <!-- DEI Use Case 1: RetailWorks Group -->
+                        <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-[420px]">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">RetailWorks Group</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 300 • Retail</p>
+                                            <p class="text-xs text-gray-500">18,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-purple-50 text-purple-700 border-purple-200 border">DEI</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                            <p class="font-semibold text-purple-900">Promotion Equity & Inclusion</p>
+                                            <p class="text-sm text-purple-700">Leadership pipeline diversity</p>
+                                            <p class="text-xs text-purple-600 mt-1">Est. 9-18 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Leadership Diversity</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">18%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">32%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Inclusion Score</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.2/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.1/5</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Retention Equity</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">85%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">92%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                            <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- DEI Use Case 2: FinServe -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-96">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">FinServe Bank</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 100 • Financial Services</p>
+                                            <p class="text-xs text-gray-500">8,500 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-purple-50 text-purple-700 border-purple-200 border">DEI</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                            <p class="font-semibold text-purple-900">Equity & Belonging</p>
+                                            <p class="text-sm text-purple-700">Cultural transformation</p>
+                                            <p class="text-xs text-purple-600 mt-1">Est. 8-15 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Belonging Score</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">2.8/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.2/5</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Pay Equity</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">92%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">98%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Promotion Equity</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">78%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">94%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- DEI Use Case 3: HealthCorp -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-96">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">HealthCorp Medical</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 200 • Healthcare</p>
+                                            <p class="text-xs text-gray-500">12,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-purple-50 text-purple-700 border-purple-200 border">DEI</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                            <p class="font-semibold text-purple-900">Patient-Centered Care</p>
+                                            <p class="text-sm text-purple-700">Cultural competency focus</p>
+                                            <p class="text-xs text-purple-600 mt-1">Est. 12-18 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Cultural Competency</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">65%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">89%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Patient Satisfaction</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.8/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.5/5</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Staff Diversity</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">28%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">42%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-red-100 text-red-800 text-xs">Workforce Alpha™</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+
+                            <!-- DEI Use Case 4: RetailCorp -->
+                            <div class="card bg-base-100 shadow-lg border border-gray-200 rounded-xl w-96">
+                                <div class="p-6">
+                                    <!-- Company Info -->
+                                    <div class="flex items-start justify-between mb-6">
+                                        <div>
+                                            <h4 class="text-xl font-semibold text-gray-900">RetailCorp Stores</h4>
+                                            <p class="text-sm text-gray-600 mt-1">Fortune 300 • Retail</p>
+                                            <p class="text-xs text-gray-500">25,000 employees</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="badge bg-purple-50 text-purple-700 border-purple-200 border">DEI</div>
+                                            <p class="text-xs text-gray-500 mt-1">Primary Role</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Strategic Focus -->
+                                    <div class="mb-6">
+                                        <div class="flex items-center justify-between mb-3">
+                                            <span class="text-sm font-semibold text-gray-700">Strategic Focus</span>
+                                            <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                        </div>
+                                        <div class="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                                            <p class="font-semibold text-purple-900">Community Engagement</p>
+                                            <p class="text-sm text-purple-700">Local market focus</p>
+                                            <p class="text-xs text-purple-600 mt-1">Est. 9-14 months</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Key Metrics -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-green-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:chart-bar" data-width="16"></span>
+                                            Key Metrics Transformation
+                                        </p>
+                                        <div class="space-y-3">
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Community Representation</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-red-500">45%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">68%</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Customer Trust</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">3.5/5</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">4.3/5</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-sm text-gray-700">Local Market Share</span>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="text-sm font-semibold text-gray-500">12%</span>
+                                                    <span class="iconify text-gray-400" data-icon="heroicons:arrow-right" data-width="16"></span>
+                                                    <span class="text-sm font-semibold text-green-500">18%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Applied Modules -->
+                                    <div class="mb-6">
+                                        <p class="text-sm font-semibold mb-3 text-purple-700 flex items-center">
+                                            <span class="iconify mr-2" data-icon="heroicons:puzzle-piece" data-width="16"></span>
+                                            Applied Modules
+                                        </p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <div class="badge bg-blue-100 text-blue-800 text-xs">TalentScores™</div>
+                                            <div class="badge bg-purple-100 text-purple-800 text-xs">Predictive Intelligence</div>
+                                            <div class="badge bg-green-100 text-green-800 text-xs">Portfolio Dashboards</div>
+                                            <div class="badge bg-yellow-100 text-yellow-800 text-xs">Mobility Engine</div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-primary w-full text-sm">View Full Case Study</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Statistics Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 text-gray-900">User Engagement Insights</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Real-time analytics on how different personas interact with our platform
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- User Insights Summary -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-green-600 flex items-center mb-2">
+                            <i data-lucide="bar-chart-3" class="icon text-green-600 mr-3"></i>
+                            User Insights Summary
+                        </h3>
+                        <p class="text-gray-600">Platform engagement metrics and user activity</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">Total Use Cases Explored</span>
+                                <div class="badge bg-green-100 text-green-800">28</div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">Unique Users</span>
+                                <div class="badge bg-blue-100 text-blue-800">104</div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">Overall Engagement Rate</span>
+                                <div class="badge bg-purple-100 text-purple-800">78%</div>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-500 h-2 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Satisfaction Breakdown -->
+                <div class="card">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-blue-600 flex items-center mb-2">
+                            <i data-lucide="users" class="icon text-blue-600 mr-3"></i>
+                            User Satisfaction Breakdown
+                        </h3>
+                        <p class="text-gray-600">Satisfaction scores by role and persona</p>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">CEO/COO</span>
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">4.8/5</div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-1">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 96%"></div>
+                                    </div>
+                                </div>
+                                <i data-lucide="star" class="icon-sm text-yellow-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">CFO</span>
+                                <div class="badge bg-green-50 text-green-700 border-green-200 border">4.6/5</div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-1">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 92%"></div>
+                                    </div>
+                                </div>
+                                <i data-lucide="star" class="icon-sm text-yellow-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">CHRO/CPO</span>
+                                <div class="badge bg-yellow-50 text-yellow-700 border-yellow-200 border">4.5/5</div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-1">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                                <i data-lucide="star" class="icon-sm text-yellow-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="p-5 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-semibold text-gray-900">HRBP/DEI</span>
+                                <div class="badge bg-yellow-50 text-yellow-700 border-yellow-200 border">4.4/5</div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex-1">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-yellow-500 h-2 rounded-full" style="width: 88%"></div>
+                                    </div>
+                                </div>
+                                <i data-lucide="star" class="icon-sm text-yellow-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Take the Next Step Section -->
+    <section class="py-12 px-6 max-w-6xl mx-auto text-center">
+        <h2 class="text-2xl font-bold mb-6">Take the Next Step</h2>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <button class="btn btn-primary">Request a Demo</button>
+            <button class="btn btn-secondary">Download Related Resource</button>
+            <a href="use_cases.html">
+                <button class="btn btn-outline">Back to Use Cases</button>
+            </a>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="bg-base-300 text-base-content py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="logo-container mr-3">
+                            <span class="iconify text-primary" data-icon="heroicons:chart-bar-square" data-width="32"></span>
+                        </div>
+                        <h3 class="text-xl font-semibold gradient-text">Valor88</h3>
+                    </div>
+                    <p class="text-base-content/70 mb-6 leading-relaxed">
+                        Empower strategic talent decisions with AI. Transform your talent strategy 
+                        and unlock organizational potential through data-driven insights.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="btn btn-primary btn-glow shadow-lg" onclick="navigateTo('demo_request_form')">
+                            <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20"></span>
+                            Request Demo
+                        </button>
+                        <button class="btn btn-outline border-base-content/20 text-base-content hover:bg-base-content hover:text-base-300">
+                            Free Trial
+                        </button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-base-content">Product</h4>
+                    <ul class="space-y-3 text-base-content/70">
+                        <li><a href="#" class="link-hover-primary">Talent Assessment</a></li>
+                        <li><a href="#" class="link-hover-primary">Risk Prediction</a></li>
+                        <li><a href="#" class="link-hover-primary">Career Path Planning</a></li>
+                        <li><a href="#" class="link-hover-primary">Smart Recommendations</a></li>
+                        <li><a href="#" class="link-hover-primary">Analytics Dashboard</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-base-content">Solutions</h4>
+                    <ul class="space-y-3 text-base-content/70">
+                        <li><a href="#" class="link-hover-primary">Enterprise</a></li>
+                        <li><a href="#" class="link-hover-primary">Mid-Market</a></li>
+                        <li><a href="#" class="link-hover-primary">Human Resources</a></li>
+                        <li><a href="#" class="link-hover-primary">Business Departments</a></li>
+                        <li><a href="#" class="link-hover-primary">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-6 text-base-content">Support</h4>
+                    <ul class="space-y-3 text-base-content/70">
+                        <li><a href="#" class="link-hover-primary">Help Center</a></li>
+                        <li><a href="#" class="link-hover-primary">API Documentation</a></li>
+                        <li><a href="#" class="link-hover-primary">Customer Support</a></li>
+                        <li><a href="#" class="link-hover-primary">Contact Us</a></li>
+                        <li><a href="#" class="link-hover-primary">Status Page</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-base-content/20 pt-12">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-base-content/70 text-sm">
+                        © 2025 Valor88. All rights reserved.
+                    </p>
+                    <div class="flex space-x-8 mt-4 md:mt-0">
+                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Privacy Policy</a>
+                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Terms of Service</a>
+                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- AlpineJS Logic -->
+    <script>
+        function assessmentForm() {
+            return {
+                questions: [
+                    { text: 'Q1. We are concerned about our employee turnover rate.', dimension: 'Clear Problem' },
+                    { text: 'Q2. High performers lack a transparent path to promotion.', dimension: 'Clear Problem' },
+                    { text: 'Q3. Our strategic plans are delayed due to workforce issues.', dimension: 'Affected Goals' },
+                    { text: 'Q4. We often fail to deliver workforce plans on time.', dimension: 'Affected Goals' },
+                    { text: 'Q5. We lack forward-looking insights into personnel risk.', dimension: 'System Failure' },
+                    { text: 'Q6. Our tools do not offer real-time workforce analytics.', dimension: 'System Failure' },
+                    { text: 'Q7. We can't easily track recruitment cost trends.', dimension: 'Impacted Roles' },
+                    { text: 'Q8. Executives are slow to respond to emerging risks.', dimension: 'Impacted Roles' },
+                    { text: 'Q9. Most of our promotion candidates are in high-risk positions.', dimension: 'Data Symptoms' },
+                    { text: 'Q10. Our hiring cycle is excessively long.', dimension: 'Data Symptoms' },
+                ],
+                responses: Array(10).fill(null),
+                resultText: '',
+                submitForm() {
+                    if (this.responses.includes(null)) {
+                        alert('Please answer all questions before submitting.');
+                        return;
+                    }
+                    const scoreMap = {};
+                    this.questions.forEach((q, i) => {
+                        if (!scoreMap[q.dimension]) scoreMap[q.dimension] = 0;
+                        scoreMap[q.dimension] += Number(this.responses[i]);
+                    });
+                    const topDimension = Object.entries(scoreMap).sort((a, b) => b[1] - a[1])[0][0];
+                    const emojiMap = {
+                        'Clear Problem': '❓ Clear Problem',
+                        'Affected Goals': '🎯 Affected Goals',
+                        'System Failure': '🧬 System Failure',
+                        'Impacted Roles': '🧑‍🤝‍🧑 Impacted Roles',
+                        'Data Symptoms': '📊 Data Symptoms'
+                    };
+                    this.resultText = emojiMap[topDimension] + ' — This is your most pressing concern based on the responses.';
+                }
+            };
+        }
+
+        function kpiCarousel() {
+            return {
+                currentSlide: 0,
+                totalSlides: 4,
+                nextSlide() {
+                    this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                    this.updateCarousel();
+                },
+                previousSlide() {
+                    this.currentSlide = this.currentSlide === 0 ? this.totalSlides - 1 : this.currentSlide - 1;
+                    this.updateCarousel();
+                },
+                updateCarousel() {
+                    const translateX = -(this.currentSlide * 100);
+                    this.$refs.carousel.style.transform = `translateX(${translateX}%)`;
+                }
+            };
+        }
+
+        // Navigation functions
+        function navigateTo(pageId) {
+            // Navigation logic here
+            console.log('Navigating to:', pageId);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.querySelector('[data-mobile-menu]');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        function handleNewsletterSignup(email) {
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address');
+                return;
+            }
+            alert('Thank you for subscribing to our newsletter!');
+        }
+
+        // Set active navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('[data-section-id="common_header"] .menu a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Set Use Cases as active
+            const useCasesLink = Array.from(navLinks).find(link => 
+                link.textContent.trim() === 'Use Cases'
+            );
+            if (useCasesLink) {
+                useCasesLink.classList.add('active');
+            }
+        });
+
+        // Tab switching functionality
+        function switchRole(role) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Here you could add logic to show different content based on role
+            console.log('Switched to role:', role);
+        }
+
+        // Use Case Carousel functionality
+        let currentCeoSlide = 0;
+        let currentChroSlide = 0;
+        let currentCfoSlide = 0;
+        let currentDeiSlide = 0;
+
+        // CEO Carousel functions
+        function nextCeoSlide() {
+            const maxSlide = 1; // 2 slides (4 cards total, 2 per slide)
+            currentCeoSlide = currentCeoSlide >= maxSlide ? 0 : currentCeoSlide + 1;
+            updateCeoCarousel();
+        }
+
+        function previousCeoSlide() {
+            const maxSlide = 1;
+            currentCeoSlide = currentCeoSlide <= 0 ? maxSlide : currentCeoSlide - 1;
+            updateCeoCarousel();
+        }
+
+        function goToCeoSlide(slideIndex) {
+            const maxSlide = 1;
+            currentCeoSlide = Math.min(slideIndex, maxSlide);
+            updateCeoCarousel();
+        }
+
+        function updateCeoCarousel() {
+            const carousel = document.getElementById('ceoCarousel');
+            if (!carousel) return;
+            
+            const translateX = -(currentCeoSlide * 50); // 50% per slide (2 cards)
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('[onclick^="goToCeoSlide"]');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentCeoSlide);
+                dot.style.backgroundColor = index === currentCeoSlide ? '#2563eb' : '#d1d5db';
+            });
+        }
+
+        // CHRO Carousel functions
+        function nextChroSlide() {
+            const maxSlide = 1;
+            currentChroSlide = currentChroSlide >= maxSlide ? 0 : currentChroSlide + 1;
+            updateChroCarousel();
+        }
+
+        function previousChroSlide() {
+            const maxSlide = 1;
+            currentChroSlide = currentChroSlide <= 0 ? maxSlide : currentChroSlide - 1;
+            updateChroCarousel();
+        }
+
+        function goToChroSlide(slideIndex) {
+            const maxSlide = 1;
+            currentChroSlide = Math.min(slideIndex, maxSlide);
+            updateChroCarousel();
+        }
+
+        function updateChroCarousel() {
+            const carousel = document.getElementById('chroCarousel');
+            if (!carousel) return;
+            
+            const translateX = -(currentChroSlide * 50);
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('[onclick^="goToChroSlide"]');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentChroSlide);
+                dot.style.backgroundColor = index === currentChroSlide ? '#2563eb' : '#d1d5db';
+            });
+        }
+
+        // CFO Carousel functions
+        function nextCfoSlide() {
+            const maxSlide = 1;
+            currentCfoSlide = currentCfoSlide >= maxSlide ? 0 : currentCfoSlide + 1;
+            updateCfoCarousel();
+        }
+
+        function previousCfoSlide() {
+            const maxSlide = 1;
+            currentCfoSlide = currentCfoSlide <= 0 ? maxSlide : currentCfoSlide - 1;
+            updateCfoCarousel();
+        }
+
+        function goToCfoSlide(slideIndex) {
+            const maxSlide = 1;
+            currentCfoSlide = Math.min(slideIndex, maxSlide);
+            updateCfoCarousel();
+        }
+
+        function updateCfoCarousel() {
+            const carousel = document.getElementById('cfoCarousel');
+            if (!carousel) return;
+            
+            const translateX = -(currentCfoSlide * 50);
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('[onclick^="goToCfoSlide"]');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentCfoSlide);
+                dot.style.backgroundColor = index === currentCfoSlide ? '#2563eb' : '#d1d5db';
+            });
+        }
+
+        // DEI Carousel functions
+        function nextDeiSlide() {
+            const maxSlide = 1;
+            currentDeiSlide = currentDeiSlide >= maxSlide ? 0 : currentDeiSlide + 1;
+            updateDeiCarousel();
+        }
+
+        function previousDeiSlide() {
+            const maxSlide = 1;
+            currentDeiSlide = currentDeiSlide <= 0 ? maxSlide : currentDeiSlide - 1;
+            updateDeiCarousel();
+        }
+
+        function goToDeiSlide(slideIndex) {
+            const maxSlide = 1;
+            currentDeiSlide = Math.min(slideIndex, maxSlide);
+            updateDeiCarousel();
+        }
+
+        function updateDeiCarousel() {
+            const carousel = document.getElementById('deiCarousel');
+            if (!carousel) return;
+            
+            const translateX = -(currentDeiSlide * 50);
+            carousel.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('[onclick^="goToDeiSlide"]');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentDeiSlide);
+                dot.style.backgroundColor = index === currentDeiSlide ? '#2563eb' : '#d1d5db';
+            });
+        }
+
+        // Initialize carousels when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all carousels
+            updateCeoCarousel();
+            updateChroCarousel();
+            updateCfoCarousel();
+            updateDeiCarousel();
+        });
+    </script>
+</body>
+</html> 

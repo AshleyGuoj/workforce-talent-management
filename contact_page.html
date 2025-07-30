@@ -236,12 +236,32 @@
   </div>
   <script>
     window.navigateTo = function(targetPageId) {
+      const pageNameMap = {
+        'homepage': 'Homepage',
+        'product_page': 'valor88-product-page',
+        'use_cases_page': 'use_case_updated',
+        'vision_page': 'vision_page',
+        'contact_page': 'contact_page',
+        'demo_request_form': 'Demo Request Form',
+        'demo_confirmation': 'Demo Request Confirmation',
+        'booking_calendar': 'booking_calendar',
+        'booking_confirmation': 'booking_confirmation',
+        'newsletter_confirmation': 'newsletter_confirmation',
+        'use_case_detail': 'use_case_detail_updated',
+        'talent_scores_page': 'valor88-product-page',
+        'predictive_intelligence_page': 'valor88-product-page',
+        'real_time_dashboards_page': 'valor88-product-page'
+      };
+      
       const isInIframe = window.self !== window.top;
-      const targetFileName = `${targetPageId}.html`;
+      const targetPageName = pageNameMap[targetPageId];
+      
       if (isInIframe) {
         window.parent.postMessage({ type: 'iframeNavigation', targetPageId }, '*');
+      } else if (targetPageName) {
+        window.location.href = targetPageName + '.html';
       } else {
-        window.location.href = targetFileName;
+        console.error('No mapping found for pageId:', targetPageId);
       }
     };
     window.toggleMobileMenu = function() {

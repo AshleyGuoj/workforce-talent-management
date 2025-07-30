@@ -480,7 +480,7 @@
                     </li>
                     <li class="flex items-center">
                         <span class="mx-2 text-gray-500">/</span>
-                        <a href="Use_cases.html" class="hover:text-blue-800 transition-colors font-medium">Use Cases</a>
+                        <a href="use_case_updated.html" class="hover:text-blue-800 transition-colors font-medium">Use Cases</a>
                     </li>
                     <li class="flex items-center">
                         <span class="mx-2 text-gray-500">/</span>
@@ -2140,7 +2140,7 @@
                     { text: 'Q4. We often fail to deliver workforce plans on time.', dimension: 'Affected Goals' },
                     { text: 'Q5. We lack forward-looking insights into personnel risk.', dimension: 'System Failure' },
                     { text: 'Q6. Our tools do not offer real-time workforce analytics.', dimension: 'System Failure' },
-                    { text: 'Q7. We can't easily track recruitment cost trends.', dimension: 'Impacted Roles' },
+                    { text: 'Q7. We can not easily track recruitment cost trends.', dimension: 'Impacted Roles' },
                     { text: 'Q8. Executives are slow to respond to emerging risks.', dimension: 'Impacted Roles' },
                     { text: 'Q9. Most of our promotion candidates are in high-risk positions.', dimension: 'Data Symptoms' },
                     { text: 'Q10. Our hiring cycle is excessively long.', dimension: 'Data Symptoms' },
@@ -2191,8 +2191,29 @@
 
         // Navigation functions
         function navigateTo(pageId) {
-            // Navigation logic here
-            console.log('Navigating to:', pageId);
+            const pageNameMap = {
+                'homepage': 'Homepage',
+                'product_page': 'valor88-product-page',
+                'use_cases_page': 'use_case_updated',
+                'vision_page': 'vision_page',
+                'contact_page': 'contact_page',
+                'demo_request_form': 'Demo Request Form',
+                'demo_confirmation': 'Demo Request Confirmation',
+                'booking_calendar': 'booking_calendar',
+                'booking_confirmation': 'booking_confirmation',
+                'newsletter_confirmation': 'newsletter_confirmation',
+                'use_case_detail': 'use_case_detail_updated',
+                'talent_scores_page': 'valor88-product-page',
+                'predictive_intelligence_page': 'valor88-product-page',
+                'real_time_dashboards_page': 'valor88-product-page'
+            };
+            
+            const targetPageName = pageNameMap[pageId];
+            if (targetPageName) {
+                window.location.href = targetPageName + '.html';
+            } else {
+                console.error('No mapping found for pageId:', pageId);
+            }
         }
 
         function toggleMobileMenu() {

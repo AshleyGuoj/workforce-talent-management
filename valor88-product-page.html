@@ -1524,33 +1524,33 @@
                 <div>
                     <h4 class="font-semibold mb-6 text-base-content">Product</h4>
                     <ul class="space-y-3 text-base-content/70">
-                        <li><a href="#" class="link-hover-primary">Talent Assessment</a></li>
-                        <li><a href="#" class="link-hover-primary">Risk Prediction</a></li>
-                        <li><a href="#" class="link-hover-primary">Career Path Planning</a></li>
-                        <li><a href="#" class="link-hover-primary">Smart Recommendations</a></li>
-                        <li><a href="#" class="link-hover-primary">Analytics Dashboard</a></li>
+                        <li><a onclick="navigateTo('talent_scores_page')" class="link-hover-primary cursor-pointer">Talent Assessment</a></li>
+                        <li><a onclick="navigateTo('predictive_intelligence_page')" class="link-hover-primary cursor-pointer">Risk Prediction</a></li>
+                        <li><a onclick="navigateTo('real_time_dashboards_page')" class="link-hover-primary cursor-pointer">Career Path Planning</a></li>
+                        <li><a onclick="navigateTo('talent_scores_page')" class="link-hover-primary cursor-pointer">Smart Recommendations</a></li>
+                        <li><a onclick="navigateTo('real_time_dashboards_page')" class="link-hover-primary cursor-pointer">Analytics Dashboard</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-6 text-base-content">Solutions</h4>
                     <ul class="space-y-3 text-base-content/70">
-                        <li><a href="#" class="link-hover-primary">Enterprise</a></li>
-                        <li><a href="#" class="link-hover-primary">Mid-Market</a></li>
-                        <li><a href="#" class="link-hover-primary">Human Resources</a></li>
-                        <li><a href="#" class="link-hover-primary">Business Departments</a></li>
-                        <li><a href="#" class="link-hover-primary">Consulting</a></li>
+                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Enterprise</a></li>
+                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Mid-Market</a></li>
+                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Human Resources</a></li>
+                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Business Departments</a></li>
+                        <li><a onclick="navigateTo('use_cases_page')" class="link-hover-primary cursor-pointer">Consulting</a></li>
                     </ul>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-6 text-base-content">Support</h4>
                     <ul class="space-y-3 text-base-content/70">
-                        <li><a href="#" class="link-hover-primary">Help Center</a></li>
-                        <li><a href="#" class="link-hover-primary">API Documentation</a></li>
-                        <li><a href="#" class="link-hover-primary">Customer Support</a></li>
-                        <li><a href="#" class="link-hover-primary">Contact Us</a></li>
-                        <li><a href="#" class="link-hover-primary">Status Page</a></li>
+                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Help Center</a></li>
+                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">API Documentation</a></li>
+                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Customer Support</a></li>
+                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Contact Us</a></li>
+                        <li><a onclick="navigateTo('contact_page')" class="link-hover-primary cursor-pointer">Status Page</a></li>
                     </ul>
                 </div>
             </div>
@@ -1561,9 +1561,9 @@
                         © 2025 Valor88. All rights reserved.
                     </p>
                     <div class="flex space-x-8 mt-4 md:mt-0">
-                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Privacy Policy</a>
-                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Terms of Service</a>
-                        <a href="#" class="text-base-content/70 link-hover-primary text-sm">Cookie Policy</a>
+                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Privacy Policy</a>
+                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Terms of Service</a>
+                        <a onclick="navigateTo('contact_page')" class="text-base-content/70 link-hover-primary text-sm cursor-pointer">Cookie Policy</a>
                     </div>
                 </div>
             </div>
@@ -1576,10 +1576,18 @@
             const pageNameMap = {
                 'homepage': 'Homepage',
                 'product_page': 'valor88-product-page',
-                'use_cases_page': 'Use_cases',
+                'use_cases_page': 'use_case_updated',
                 'vision_page': 'vision_page',
                 'contact_page': 'contact_page',
-                'demo_request_form': 'Demo Request Form'
+                'demo_request_form': 'Demo Request Form',
+                'demo_confirmation': 'Demo Request Confirmation',
+                'booking_calendar': 'booking_calendar',
+                'booking_confirmation': 'booking_confirmation',
+                'newsletter_confirmation': 'newsletter_confirmation',
+                'use_case_detail': 'use_case_detail_updated',
+                'talent_scores_page': 'valor88-product-page',
+                'predictive_intelligence_page': 'valor88-product-page',
+                'real_time_dashboards_page': 'valor88-product-page'
             };
             
             const targetPage = pageNameMap[pageId];

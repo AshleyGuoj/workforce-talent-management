@@ -41,8 +41,19 @@
                 const resolutionRatio = width && height ? width / height : 1
                 const pageNameMap = {
                   'homepage': 'Homepage',
-    'demo_request_form': 'Demo Request Form',
-    'demo_confirmation': 'Demo Request Confirmation'
+                  'demo_request_form': 'Demo Request Form',
+                  'demo_confirmation': 'Demo Request Confirmation',
+                  'product_page': 'valor88-product-page',
+                  'use_cases_page': 'use_case_updated',
+                  'vision_page': 'vision_page',
+                  'contact_page': 'contact_page',
+                  'booking_calendar': 'booking_calendar',
+                  'booking_confirmation': 'booking_confirmation',
+                  'newsletter_confirmation': 'newsletter_confirmation',
+                  'use_case_detail': 'use_case_detail_updated',
+                  'talent_scores_page': 'valor88-product-page',
+                  'predictive_intelligence_page': 'valor88-product-page',
+                  'real_time_dashboards_page': 'valor88-product-page'
                 }
                 function setIframeSize(w, h) {
                   const currentContainerRadio = w / h
@@ -653,37 +664,73 @@
             <p class="text-lg text-base-content/70 max-w-2xl mx-auto" data-type="text">Discover the core capabilities that make Valor88 the trusted choice for strategic talent decisions.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Top row: 3 cards using flex justify-between -->
+        <div class="flex flex-col md:flex-row justify-between gap-8 mb-12">
             <!-- TalentScores Engine Card -->
-            <div class="card bg-base-100 shadow-lg feature-card cursor-pointer" onclick="navigateTo(&apos;talent_scores_page&apos;)" data-type="container" data-repeatable="true">
-                <div class="card-body text-center p-8">
+            <div class="flex-1">
+                <div class="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:shadow-xl transition-shadow" onclick="navigateTo(&apos;talent_scores_page&apos;)" data-type="container" data-repeatable="true">
                     <div class="flex justify-center mb-6">
-                        <span class="iconify text-secondary feature-icon" data-icon="heroicons:chart-bar-square" data-width="48" data-type="icon"></span>
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="iconify text-white" data-icon="heroicons:chart-bar" data-width="32" data-type="icon"></span>
+                        </div>
                     </div>
-                    <h3 class="heading-3 mb-4" data-type="text">TalentScores™ Engine</h3>
-                    <p class="text-base-content/70" data-type="text">AI-powered scoring system that evaluates talent potential with unprecedented accuracy, helping you identify high-performers before your competitors.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-type="text">TalentScores™ Engine</h3>
+                    <p class="text-gray-700 text-center leading-relaxed" data-type="text">Combines 18+ internal and external signals to evaluate talent value, attrition risk, internal mobility, cultural fit, and influence.</p>
                 </div>
             </div>
             
-            <!-- Predictive Intelligence Card -->
-            <div class="card bg-base-100 shadow-lg feature-card cursor-pointer" onclick="navigateTo(&apos;predictive_intelligence_page&apos;)" data-type="container" data-repeatable="true">
-                <div class="card-body text-center p-8">
+            <!-- Predictive Talent Intelligence Card -->
+            <div class="flex-1">
+                <div class="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:shadow-xl transition-shadow" onclick="navigateTo(&apos;predictive_intelligence_page&apos;)" data-type="container" data-repeatable="true">
                     <div class="flex justify-center mb-6">
-                        <span class="iconify text-secondary feature-icon" data-icon="heroicons:light-bulb" data-width="48" data-type="icon"></span>
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="iconify text-white" data-icon="heroicons:light-bulb" data-width="32" data-type="icon"></span>
+                        </div>
                     </div>
-                    <h3 class="heading-3 mb-4" data-type="text">Predictive Intelligence</h3>
-                    <p class="text-base-content/70" data-type="text">Advanced analytics that forecast talent performance, retention risks, and succession planning needs to keep your organization ahead.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-type="text">Predictive Talent Intelligence</h3>
+                    <p class="text-gray-700 text-center leading-relaxed" data-type="text">Predicts attrition and burnout, simulates role movements, and estimates ROI of skill investments.</p>
                 </div>
             </div>
             
-            <!-- Real-Time Dashboards Card -->
-            <div class="card bg-base-100 shadow-lg feature-card cursor-pointer" onclick="navigateTo(&apos;real_time_dashboards_page&apos;)" data-type="container" data-repeatable="true">
-                <div class="card-body text-center p-8">
+            <!-- Portfolio Dashboards Card -->
+            <div class="flex-1">
+                <div class="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:shadow-xl transition-shadow" onclick="navigateTo(&apos;real_time_dashboards_page&apos;)" data-type="container" data-repeatable="true">
                     <div class="flex justify-center mb-6">
-                        <span class="iconify text-secondary feature-icon" data-icon="heroicons:presentation-chart-line" data-width="48" data-type="icon"></span>
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="iconify text-white" data-icon="heroicons:presentation-chart-line" data-width="32" data-type="icon"></span>
+                        </div>
                     </div>
-                    <h3 class="heading-3 mb-4" data-type="text">Real-Time Dashboards</h3>
-                    <p class="text-base-content/70" data-type="text">Executive-level insights and KPIs delivered through intuitive dashboards that transform complex data into actionable intelligence.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-type="text">Portfolio Dashboards</h3>
+                    <p class="text-gray-700 text-center leading-relaxed" data-type="text">Visual heatmaps that surface risks and opportunities across organizations, departments, and teams.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom row: 2 cards using flex justify-center space-x-6 -->
+        <div class="flex justify-center space-x-6">
+            <!-- Internal Mobility & Upskilling Engine Card -->
+            <div class="w-80">
+                <div class="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:shadow-xl transition-shadow" onclick="navigateTo(&apos;talent_scores_page&apos;)" data-type="container" data-repeatable="true">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="iconify text-white" data-icon="heroicons:arrow-path" data-width="32" data-type="icon"></span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-type="text">Internal Mobility & Upskilling Engine</h3>
+                    <p class="text-gray-700 text-center leading-relaxed" data-type="text">Identifies hidden talent and recommends suitable roles and career pathways.</p>
+                </div>
+            </div>
+            
+            <!-- Workforce Alpha Metrics Card -->
+            <div class="w-80">
+                <div class="bg-white rounded-xl shadow-lg p-8 cursor-pointer hover:shadow-xl transition-shadow" onclick="navigateTo(&apos;real_time_dashboards_page&apos;)" data-type="container" data-repeatable="true">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span class="iconify text-white" data-icon="heroicons:calculator" data-width="32" data-type="icon"></span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 text-center" data-type="text">Workforce Alpha™ Metrics</h3>
+                    <p class="text-gray-700 text-center leading-relaxed" data-type="text">Benchmarks output vs. compensation, burnout-adjusted productivity, and internal vs. external talent value.</p>
                 </div>
             </div>
         </div>

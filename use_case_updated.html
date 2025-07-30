@@ -421,7 +421,7 @@
             </li>
             <li class="flex items-center">
                 <span class="mx-2 text-gray-500">/</span>
-                <a href="use_case_demo.html" class="hover:text-blue-800 transition-colors font-medium">Talent Mobility Optimization</a>
+                <a href="use_case_detail_updated.html" class="hover:text-blue-800 transition-colors font-medium">Talent Mobility Optimization</a>
             </li>
         </ol>
     </nav>
@@ -466,7 +466,7 @@
                     <p class="text-gray-700 leading-relaxed text-lg">
                         CEOs need to turn "talent strategy" from a slogan into a measurable return on investment. Valor88 delivers real-world data to help leadership quantify how talent allocation impacts business performance and enables forward-looking strategic workforce planning. <span class="font-bold text-blue-600">Valor88 transforms intuition into precision.</span>
                     </p>
-                    <a href="use_case_demo.html" class="learn-more-link">Learn more</a>
+                    <a href="use_case_detail_updated.html" class="learn-more-link">Learn more</a>
                 </div>
 
                 <!-- Urgency Card 2 -->
@@ -481,7 +481,7 @@
                     <p class="text-gray-700 leading-relaxed text-lg">
                         Faced with rapid skill shifts and tightening regulations, CHROs must monitor burnout risks, attrition signals, and compliance in real-time. Valor88 combines internal and external signals to provide actionable insights for workforce movement, succession planning, and cultural alignment. <span class="font-bold text-red-600">Illuminate hidden risks in real-time.</span>
                     </p>
-                    <a href="use_case_demo.html" class="learn-more-link">Learn more</a>
+                    <a href="use_case_detail_updated.html" class="learn-more-link">Learn more</a>
                 </div>
 
                 <!-- Urgency Card 3 -->
@@ -496,7 +496,7 @@
                     <p class="text-gray-700 leading-relaxed text-lg">
                         CFOs care not only about labor costs, but also about workforce productivity and budget efficiency. Valor88 provides visual dashboards of talent investment effectiveness, enabling data-driven decisions on internal mobility vs external hiring. <span class="font-bold text-green-600">Drive efficiency across talent investments.</span>
                     </p>
-                    <a href="use_case_demo.html" class="learn-more-link">Learn more</a>
+                    <a href="use_case_detail_updated.html" class="learn-more-link">Learn more</a>
                 </div>
 
                 <!-- NEW: Urgency Card 4 -->
@@ -511,7 +511,7 @@
                     <p class="text-gray-700 leading-relaxed text-lg">
                         DEI is no longer just a buzzword. Valor88 offers measurable visibility into promotion fairness and opportunity distribution, helping HRBPs identify hidden talent and promote equity across the organization. <span class="font-bold text-yellow-600">Ensure visibility and equity in career paths.</span>
                     </p>
-                    <a href="use_case_demo.html" class="learn-more-link">Learn more</a>
+                    <a href="use_case_detail_updated.html" class="learn-more-link">Learn more</a>
                 </div>
             </div>
         </div>
@@ -891,15 +891,35 @@
 
             // Navigation function
             window.navigateTo = function(targetPageId) {
+                const pageNameMap = {
+                    'homepage': 'Homepage',
+                    'product_page': 'valor88-product-page',
+                    'use_cases_page': 'use_case_updated',
+                    'vision_page': 'vision_page',
+                    'contact_page': 'contact_page',
+                    'demo_request_form': 'Demo Request Form',
+                    'demo_confirmation': 'Demo Request Confirmation',
+                    'booking_calendar': 'booking_calendar',
+                    'booking_confirmation': 'booking_confirmation',
+                    'newsletter_confirmation': 'newsletter_confirmation',
+                    'use_case_detail': 'use_case_detail_updated',
+                    'talent_scores_page': 'valor88-product-page',
+                    'predictive_intelligence_page': 'valor88-product-page',
+                    'real_time_dashboards_page': 'valor88-product-page'
+                };
+                
                 const isInIframe = window.self !== window.top;
-                const targetFileName = `${targetPageId}.html`;
+                const targetPageName = pageNameMap[targetPageId];
+                
                 if (isInIframe) {
                     window.parent.postMessage({
                         type: 'iframeNavigation',
                         targetPageId: targetPageId
                     }, '*');
+                } else if (targetPageName) {
+                    window.location.href = targetPageName + '.html';
                 } else {
-                    window.location.href = targetFileName;
+                    console.error('No mapping found for pageId:', targetPageId);
                 }
             };
             

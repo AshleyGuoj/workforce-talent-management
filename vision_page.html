@@ -70,7 +70,7 @@
           <li><a data-type="text" onclick="navigateTo('vision_page')" class="link-hover-primary">Vision</a></li>
           <li><a data-type="text" onclick="navigateTo('contact_page')" class="link-hover-primary">Contact</a></li>
           <li class="border-t mt-2 pt-2">
-            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo('Demo Request Form')">
+            <button class="btn btn-primary btn-sm w-full" onclick="navigateTo('demo_request_form')">
               <span data-type="text">Request Demo</span>
             </button>
           </li>
@@ -90,7 +90,7 @@
       </ul>
     </div>
     <div class="navbar-end hidden lg:flex">
-                <button class="btn btn-primary button-text" onclick="navigateTo('Demo Request Form')" data-type="button">
+                <button class="btn btn-primary button-text" onclick="navigateTo('demo_request_form')" data-type="button">
         <span data-type="text">Request Demo</span>
       </button>
     </div>
@@ -229,7 +229,7 @@
         <p class="text-xl mb-12 leading-relaxed text-white/90 max-w-3xl mx-auto">Join visionary leaders who are already transforming how they think about talent strategy.</p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <button class="btn btn-primary btn-lg" onclick="navigateTo('Demo Request Form')" data-type="button">
+          <button class="btn btn-primary btn-lg" onclick="navigateTo('demo_request_form')" data-type="button">
             <span class="iconify mr-2" data-icon="heroicons:presentation-chart-bar" data-width="20" data-type="icon"></span>
             <span data-type="text">Request a Demo</span>
           </button>
@@ -260,7 +260,7 @@
         <a class="link link-hover body-text" onclick="navigateTo('talent_scores_page')" data-type="text">TalentScores™ Engine</a>
         <a class="link link-hover body-text" onclick="navigateTo('predictive_intelligence_page')" data-type="text">Predictive Intelligence</a>
         <a class="link link-hover body-text" onclick="navigateTo('real_time_dashboards_page')" data-type="text">Real-Time Dashboards</a>
-        <a class="link link-hover body-text" onclick="navigateTo('Demo Request Form')" data-type="text">Request Demo</a>
+        <a class="link link-hover body-text" onclick="navigateTo('demo_request_form')" data-type="text">Request Demo</a>
       </nav>
       <nav data-type="container">
         <header class="footer-title text-base-content" data-type="text">Use Cases</header>
@@ -323,12 +323,32 @@
         }
       };
       window.navigateTo = function(targetPageId) {
+        const pageNameMap = {
+          'homepage': 'Homepage',
+          'product_page': 'valor88-product-page',
+          'use_cases_page': 'use_case_updated',
+          'vision_page': 'vision_page',
+          'contact_page': 'contact_page',
+          'demo_request_form': 'Demo Request Form',
+          'demo_confirmation': 'Demo Request Confirmation',
+          'booking_calendar': 'booking_calendar',
+          'booking_confirmation': 'booking_confirmation',
+          'newsletter_confirmation': 'newsletter_confirmation',
+          'use_case_detail': 'use_case_detail_updated',
+          'talent_scores_page': 'valor88-product-page',
+          'predictive_intelligence_page': 'valor88-product-page',
+          'real_time_dashboards_page': 'valor88-product-page'
+        };
+        
         const isInIframe = window.self !== window.top;
-        const targetFileName = `${targetPageId}.html`;
+        const targetPageName = pageNameMap[targetPageId];
+        
         if (isInIframe) {
           window.parent.postMessage({ type: 'iframeNavigation', targetPageId: targetPageId }, '*');
+        } else if (targetPageName) {
+          window.location.href = targetPageName + '.html';
         } else {
-          window.location.href = targetFileName;
+          console.error('No mapping found for pageId:', targetPageId);
         }
       };
       window.showToast = function(message, type = 'info', duration = 5000) {
